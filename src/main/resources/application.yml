@@ -1,0 +1,22 @@
+### jsp ###
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+### database ###
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/boardChat?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: password
+
+### spring boot reload ###
+  thymeleaf:
+    cache: false
+
+  devtools:
+    remote:
+      restart:
+        enabled: true
+
