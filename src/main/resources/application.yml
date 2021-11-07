@@ -1,20 +1,21 @@
 ### jsp ###
 spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
 ### database ###
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/boardChat?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: password
-
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/board_chat
+    username: postgres
+    password: 1234
 
 ### spring boot reload ###
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
+    suffix: .html
 
   devtools:
     remote:
