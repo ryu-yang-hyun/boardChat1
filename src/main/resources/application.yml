@@ -11,6 +11,7 @@ spring:
     username: boardchat
     password: passw0rd
 
+
 ### spring boot reload ###
   thymeleaf:
     cache: false
