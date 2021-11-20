@@ -18,12 +18,12 @@ public class AccountController {
 
     @GetMapping("/login")
     public String login() {
-        return "login_back";
+        return "account/login";
     }
 
     @GetMapping("/register")
     public String register() {
-        return "register_back";
+        return "account/register";
     }
 
     @PostMapping("/register")
