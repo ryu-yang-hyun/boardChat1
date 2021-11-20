@@ -25,7 +25,7 @@ public class User {
     @Column(name = "PASSWORD", length = 1000)
     public String password;
 
-    /****/
+    /**login 상태**/
     @Column(name = "ENABLED", length = 10)
     public Boolean enabled;
 
