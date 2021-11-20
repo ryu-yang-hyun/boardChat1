@@ -1,0 +1,34 @@
+##Request
+{
+  "userId" : "ryuyang",
+  "password" : "1234",
+  "name" : "테스터",
+  "email" : "test1@com",
+  "gender" : "남자"
+}
+
+##Response
+{
+  "data": {
+    "id": 5,
+    "userId": "ryuyang",
+    "email": null,
+    "password": "1234",
+    "enabled": null,
+    "gender": "남자",
+    "name": "테스터",
+    "createBy": null,
+    "modifiedBy": null,
+    "createAt": "2021-11-21T08:49:39.696",
+    "modifiedAt": null,
+    "roles": [
+      {
+        "id": 1,
+        "name": null,
+        "users": null
+      }
+    ]
+  },
+  "message": null,
+  "code": "200"
+}

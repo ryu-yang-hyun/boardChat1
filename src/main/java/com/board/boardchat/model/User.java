@@ -14,8 +14,8 @@ public class User {
     public Long id;
 
     /**아이디**/
-    @Column(name = "USERNAME", length = 50)
-    public String username;
+    @Column(name = "USERID", length = 50)
+    public String userId;
 
     /**이메일**/
     @Column(name = "USER_EMAIL", length = 1000)
@@ -62,20 +62,20 @@ public class User {
     @Column(name = "ROLE", length = 30)
     public List<Role> roles = new ArrayList<>();
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getName() {
