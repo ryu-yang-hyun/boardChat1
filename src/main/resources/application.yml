@@ -8,8 +8,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/board_chat
-    username: postgres
-    password: 1234
+    username: boardchat
+    password: passw0rd
 
 ### spring boot reload ###
   thymeleaf:
