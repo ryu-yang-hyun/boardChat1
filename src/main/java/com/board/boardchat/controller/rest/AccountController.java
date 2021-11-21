@@ -8,10 +8,7 @@ import com.board.boardchat.dto.ResponseEntity;
 import com.board.boardchat.entity.AccountEntity;
 import com.board.boardchat.model.User;
 import com.board.boardchat.service.account.AccountService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -70,10 +67,10 @@ public class AccountController {
     /**
      * 로그아웃
      */
-    @PostMapping("/logout")
-    public ResponseEntity logout(@RequestBody AccountDto accountDto, HttpServletRequest request) {
+    @GetMapping("/logout")
+    public ResponseEntity logout(HttpServletRequest request) {
 
-        String result = accountService.logout(accountDto, request);
+        String result = accountService.logout(request);
         ResponseEntity responseEntity = new ResponseEntity();
         responseEntity.setCode(StatusEnum.OK.toString());
         if(result == null) {

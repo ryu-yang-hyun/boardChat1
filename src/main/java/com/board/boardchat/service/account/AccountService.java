@@ -23,5 +23,5 @@ public interface AccountService {
     /**
      * 로그아웃
      */
-    public String logout (AccountDto accountDto, HttpServletRequest request) throws ServiceException;
+    public String logout (HttpServletRequest request) throws ServiceException;
 }

@@ -101,9 +101,9 @@ public class AccountServiceImpl implements AccountService {
      * 로그아웃
      */
     @Override
-    public String logout(AccountDto accountDto, HttpServletRequest request) throws ServiceException {
+    public String logout(HttpServletRequest request) throws ServiceException {
 
-        String message = "";
+        String message = null;
         HttpSession session = request.getSession();
         if (session.getAttribute("USER") != null) {
             session.removeAttribute("USER");
