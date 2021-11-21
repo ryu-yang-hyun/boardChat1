@@ -20,13 +20,13 @@ export default new Router({
       component: Test
     },
     {
-      path: "/404",
-      name: "notFound",
+      path: '/404',
+      name: 'notFound',
       component: NotFound
     },
     {
-      path: "*",
-      redirect: "/404"
+      path: '*',
+      redirect: '/404'
     }
   ]
 })
