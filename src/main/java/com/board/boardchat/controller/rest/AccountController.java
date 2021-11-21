@@ -71,7 +71,7 @@ public class AccountController {
      * 로그아웃
      */
     @PostMapping("/logout")
-    public ResponseEntity logout(@RequestBody AccountDto accountDto, HttpServletRequest request) throws NoSuchAlgorithmException {
+    public ResponseEntity logout(@RequestBody AccountDto accountDto, HttpServletRequest request) {
 
         String result = accountService.logout(accountDto, request);
         ResponseEntity responseEntity = new ResponseEntity();
