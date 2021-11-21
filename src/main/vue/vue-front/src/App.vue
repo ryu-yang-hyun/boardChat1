@@ -1,23 +1,49 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <Header />
+    <router-view id="content-wrap" />
+    <Bottom />
   </div>
 </template>
 
 <script>
+import Header from "@/components/layout/Header";
+import Bottom from "@/components/layout/Bottom";
+
 export default {
-  name: 'App'
-}
+  name: "App",
+  components: {
+    Header,
+    Bottom,
+  },
+};
 </script>
 
-<style>
+<style lang="scss">
+@import "@mdi/font/css/materialdesignicons.css";
+@import "./assets/style.scss";
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 54px;
+  padding-bottom: 60px;
+  background:#EAEAEA;
+
+  #content-wrap {
+    z-index: 9999;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    min-height: calc( 100vh - 114px );
+    padding: 10px;
+  }
+  #header {
+    z-index: 9999;
+  }
+  #bottom {
+    z-index: 9999;
+  }
 }
 </style>
