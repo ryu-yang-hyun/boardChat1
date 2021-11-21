@@ -1,6 +1,5 @@
 package com.board.boardchat.service.account;
 
-import com.board.boardchat.common.StatusEnum;
 import com.board.boardchat.converter.LoginConverter;
 import com.board.boardchat.dto.AccountDto;
 import com.board.boardchat.entity.AccountEntity;
@@ -10,10 +9,8 @@ import com.board.boardchat.repository.account.AccountRepository;
 import com.board.boardchat.repository.role.RoleRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
