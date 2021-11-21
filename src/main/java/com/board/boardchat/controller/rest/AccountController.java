@@ -67,5 +67,20 @@ public class AccountController {
         return responseEntity;
     }
 
+    /**
+     * 로그아웃
+     */
+    @PostMapping("/logout")
+    public ResponseEntity logout(@RequestBody AccountDto accountDto, HttpServletRequest request) throws NoSuchAlgorithmException {
 
+        String result = accountService.logout(accountDto, request);
+        ResponseEntity responseEntity = new ResponseEntity();
+        responseEntity.setCode(StatusEnum.OK.toString());
+        if(result == null) {
+            responseEntity.setCode(StatusEnum.INTERNAL_SERER_ERROR.toString());
+        }
+        responseEntity.setMessage(result);
+
+        return responseEntity;
+    }
 }

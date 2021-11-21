@@ -19,4 +19,9 @@ public interface AccountService {
      * 로그인
      */
     public AccountEntity login (AccountDto accountDto, HttpServletRequest request) throws ServiceException, NoSuchAlgorithmException;
+
+    /**
+     * 로그아웃
+     */
+    public String logout (AccountDto accountDto, HttpServletRequest request) throws ServiceException;
 }

@@ -69,7 +69,7 @@ public class AccountServiceImpl implements AccountService {
      * 로그인
      */
     @Override
-    public AccountEntity login(AccountDto accountDto, HttpServletRequest request) throws NoSuchAlgorithmException {
+    public AccountEntity login(AccountDto accountDto, HttpServletRequest request) throws ServiceException, NoSuchAlgorithmException {
 
 
         HttpSession session = request.getSession(true);
@@ -95,5 +95,21 @@ public class AccountServiceImpl implements AccountService {
         session.setAttribute("USER", accountEntity);
 
         return accountEntity;
+    }
+
+    /**
+     * 로그아웃
+     */
+    @Override
+    public String logout(AccountDto accountDto, HttpServletRequest request) throws ServiceException {
+
+        String message = "";
+        HttpSession session = request.getSession();
+        if (session.getAttribute("USER") != null) {
+            session.removeAttribute("USER");
+            message = "로그아웃 되었습니다.";
+        }
+
+        return message;
     }
 }
