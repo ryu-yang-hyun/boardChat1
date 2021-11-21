@@ -5,15 +5,13 @@ import com.board.boardchat.common.Constant;
 import com.board.boardchat.common.StatusEnum;
 import com.board.boardchat.dto.AccountDto;
 import com.board.boardchat.dto.ResponseEntity;
+import com.board.boardchat.entity.AccountEntity;
 import com.board.boardchat.model.User;
 import com.board.boardchat.service.account.AccountService;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
@@ -26,24 +24,6 @@ public class AccountController {
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
-
-
-//    /**
-//     * 로그인
-//     */
-//    @PostMapping("/login")
-//    public ResponseEntity login(@RequestBody AccountDto accountDto) {
-//
-//        User result = accountService.login(accountDto);
-//        ResponseEntity responseEntity = new ResponseEntity();
-//        responseEntity.setCode("200");
-//        if(result == null) {
-//            responseEntity.setCode("999");
-//        }
-//        responseEntity.setData(result);
-//
-//        return responseEntity;
-//    }
 
     /**
      * 회원가입
@@ -62,5 +42,42 @@ public class AccountController {
         return responseEntity;
     }
 
+    /**
+     * 로그인
+     */
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody AccountDto accountDto, HttpServletRequest request) throws NoSuchAlgorithmException {
 
+        AccountEntity result = accountService.login(accountDto, request);
+        ResponseEntity responseEntity = new ResponseEntity();
+        if (result.getUserId() == null || result.getUserId().equals(""))  {
+            responseEntity.setMessage("로그인 정보가 부적절 합니다.");
+        }
+
+        responseEntity.setCode(StatusEnum.OK.toString());
+
+        if(result == null) {
+           responseEntity.setCode(StatusEnum.INTERNAL_SERER_ERROR.toString());
+        }
+        responseEntity.setData(result);
+
+        return responseEntity;
+    }
+
+    /**
+     * 로그아웃
+     */
+    @GetMapping("/logout")
+    public ResponseEntity logout(HttpServletRequest request) {
+
+        String result = accountService.logout(request);
+        ResponseEntity responseEntity = new ResponseEntity();
+        responseEntity.setCode(StatusEnum.OK.toString());
+        if(result == null) {
+            responseEntity.setCode(StatusEnum.INTERNAL_SERER_ERROR.toString());
+        }
+        responseEntity.setMessage(result);
+
+        return responseEntity;
+    }
 }

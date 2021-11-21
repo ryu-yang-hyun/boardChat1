@@ -1,0 +1,23 @@
+{
+  "data": {
+    "id": 1,
+    "userId": "ryuyang",
+    "name": "테스터",
+    "email": "test1@com",
+    "password": null,
+    "gender": "남자",
+    "createBy": null,
+    "modifiedBy": null,
+    "createAt": "2021-11-21T21:10:25.733",
+    "modifiedAt": null,
+    "role": [
+      {
+        "id": 1,
+        "name": "ROLE_USER",
+        "users": null
+      }
+    ]
+  },
+  "message": null,
+  "code": "OK"
+}
