@@ -8,13 +8,13 @@ import com.board.boardchat.dto.ResponseEntity;
 import com.board.boardchat.entity.AccountEntity;
 import com.board.boardchat.model.User;
 import com.board.boardchat.service.account.AccountService;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
@@ -49,9 +49,9 @@ public class AccountController {
      * 로그인
      */
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AccountDto accountDto) throws NoSuchAlgorithmException {
+    public ResponseEntity login(@RequestBody AccountDto accountDto, HttpServletRequest request) throws NoSuchAlgorithmException {
 
-        AccountEntity result = accountService.login(accountDto);
+        AccountEntity result = accountService.login(accountDto, request);
         ResponseEntity responseEntity = new ResponseEntity();
         if (result.getUserId() == null || result.getUserId().equals(""))  {
             responseEntity.setMessage("로그인 정보가 부적절 합니다.");
@@ -66,4 +66,6 @@ public class AccountController {
 
         return responseEntity;
     }
+
+
 }

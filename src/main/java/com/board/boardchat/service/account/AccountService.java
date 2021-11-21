@@ -5,6 +5,7 @@ import com.board.boardchat.entity.AccountEntity;
 import com.board.boardchat.model.User;
 import org.hibernate.service.spi.ServiceException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 
 public interface AccountService {
@@ -17,5 +18,5 @@ public interface AccountService {
     /**
      * 로그인
      */
-    public AccountEntity login (AccountDto accountDto) throws ServiceException, NoSuchAlgorithmException;
+    public AccountEntity login (AccountDto accountDto, HttpServletRequest request) throws ServiceException, NoSuchAlgorithmException;
 }

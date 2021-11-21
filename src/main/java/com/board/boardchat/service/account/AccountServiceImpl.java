@@ -11,6 +11,8 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -67,9 +69,15 @@ public class AccountServiceImpl implements AccountService {
      * 로그인
      */
     @Override
-    public AccountEntity login(AccountDto accountDto) throws NoSuchAlgorithmException {
+    public AccountEntity login(AccountDto accountDto, HttpServletRequest request) throws NoSuchAlgorithmException {
 
-        //TODO Login 시 session 정보 추가해줘야함.
+
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("USER") != null) {
+            AccountEntity accountEntity = (AccountEntity) session.getAttribute("USER");
+            return accountEntity;
+        }
+
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(accountDto.getPassword().getBytes());
         String password = String.format("%064x", new BigInteger(1, md.digest()));
@@ -84,8 +92,8 @@ public class AccountServiceImpl implements AccountService {
         User userInfo = accountRepository.findUsersBy(accountDto.getUserId());
         LoginConverter loginConverter = new LoginConverter();
         AccountEntity accountEntity = loginConverter.convert(userInfo);
+        session.setAttribute("USER", accountEntity);
 
         return accountEntity;
-
     }
 }
