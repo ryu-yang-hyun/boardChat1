@@ -7,7 +7,7 @@ public class AccountDto {
     private String name;
     private String email;
     private String gender;
-    private String role;
+    private Long role = 1L;
 
     public Long getId() {
         return id;
@@ -57,11 +57,11 @@ public class AccountDto {
         this.gender = gender;
     }
 
-    public String getRole() {
+    public Long getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Long role) {
         this.role = role;
     }
 }

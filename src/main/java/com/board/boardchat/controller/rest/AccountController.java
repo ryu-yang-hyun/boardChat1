@@ -2,6 +2,7 @@ package com.board.boardchat.controller.rest;
 
 
 import com.board.boardchat.common.Constant;
+import com.board.boardchat.common.StatusEnum;
 import com.board.boardchat.dto.AccountDto;
 import com.board.boardchat.dto.ResponseEntity;
 import com.board.boardchat.model.User;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping(Constant.API_URL + "/account")
@@ -47,11 +49,11 @@ public class AccountController {
      * 회원가입
      */
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody AccountDto accountDto) {
+    public ResponseEntity register(@RequestBody AccountDto accountDto) throws NoSuchAlgorithmException {
 
         User result = accountService.register(accountDto);
         ResponseEntity responseEntity = new ResponseEntity();
-        responseEntity.setCode("200");
+        responseEntity.setCode(StatusEnum.OK.toString());
         if(result == null) {
            responseEntity.setCode("999");
         }
