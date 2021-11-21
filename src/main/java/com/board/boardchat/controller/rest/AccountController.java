@@ -55,7 +55,7 @@ public class AccountController {
         ResponseEntity responseEntity = new ResponseEntity();
         responseEntity.setCode(StatusEnum.OK.toString());
         if(result == null) {
-           responseEntity.setCode("999");
+           responseEntity.setCode(StatusEnum.INTERNAL_SERER_ERROR.toString());
         }
         responseEntity.setData(result);
 

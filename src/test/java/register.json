@@ -6,20 +6,19 @@
   "email" : "test1@com",
   "gender" : "남자"
 }
-
-##Response
+##response
 {
   "data": {
-    "id": 5,
+    "id": 1,
     "userId": "ryuyang",
-    "email": null,
-    "password": "1234",
+    "email": "test1@com",
+    "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
     "enabled": null,
     "gender": "남자",
     "name": "테스터",
     "createBy": null,
     "modifiedBy": null,
-    "createAt": "2021-11-21T08:49:39.696",
+    "createAt": "2021-11-21T21:10:25.733",
     "modifiedAt": null,
     "roles": [
       {
@@ -30,5 +29,5 @@
     ]
   },
   "message": null,
-  "code": "200"
+  "code": "OK"
 }
