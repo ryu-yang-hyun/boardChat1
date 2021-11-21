@@ -1,12 +1,3 @@
-##Request
-{
-  "userId" : "ryuyang",
-  "password" : "1234",
-  "name" : "테스터",
-  "email" : "test1@com",
-  "gender" : "남자"
-}
-##response
 {
   "data": {
     "id": 1,
