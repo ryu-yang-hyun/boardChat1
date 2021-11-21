@@ -5,6 +5,7 @@ import com.board.boardchat.common.Constant;
 import com.board.boardchat.common.StatusEnum;
 import com.board.boardchat.dto.AccountDto;
 import com.board.boardchat.dto.ResponseEntity;
+import com.board.boardchat.entity.AccountEntity;
 import com.board.boardchat.model.User;
 import com.board.boardchat.service.account.AccountService;
 import org.springframework.util.ObjectUtils;
@@ -27,24 +28,6 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-
-//    /**
-//     * 로그인
-//     */
-//    @PostMapping("/login")
-//    public ResponseEntity login(@RequestBody AccountDto accountDto) {
-//
-//        User result = accountService.login(accountDto);
-//        ResponseEntity responseEntity = new ResponseEntity();
-//        responseEntity.setCode("200");
-//        if(result == null) {
-//            responseEntity.setCode("999");
-//        }
-//        responseEntity.setData(result);
-//
-//        return responseEntity;
-//    }
-
     /**
      * 회원가입
      */
@@ -62,5 +45,25 @@ public class AccountController {
         return responseEntity;
     }
 
+    /**
+     * 로그인
+     */
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody AccountDto accountDto) throws NoSuchAlgorithmException {
 
+        AccountEntity result = accountService.login(accountDto);
+        ResponseEntity responseEntity = new ResponseEntity();
+        if (result.getUserId() == null || result.getUserId().equals(""))  {
+            responseEntity.setMessage("로그인 정보가 부적절 합니다.");
+        }
+
+        responseEntity.setCode(StatusEnum.OK.toString());
+
+        if(result == null) {
+           responseEntity.setCode(StatusEnum.INTERNAL_SERER_ERROR.toString());
+        }
+        responseEntity.setData(result);
+
+        return responseEntity;
+    }
 }
