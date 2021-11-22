@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
@@ -77,6 +78,27 @@ public class AccountController {
             responseEntity.setCode(StatusEnum.INTERNAL_SERER_ERROR.toString());
         }
         responseEntity.setMessage(result);
+
+        return responseEntity;
+    }
+
+    /**
+     * session 정보
+     */
+    @GetMapping("/check")
+    public ResponseEntity userSessionCheck(HttpServletRequest request) {
+
+        ResponseEntity responseEntity = new ResponseEntity();
+        AccountEntity accountEntity = new AccountEntity();
+
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("USER") != null) {
+             accountEntity = (AccountEntity) session.getAttribute("USER");
+        } else {
+            accountEntity.setId(-1L);
+        }
+        responseEntity.setData(accountEntity);
+        responseEntity.setCode(StatusEnum.OK.toString());
 
         return responseEntity;
     }
