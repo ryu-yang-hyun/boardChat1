@@ -7,6 +7,7 @@
     @input="updated"
     :placeholder="placeholder"
     @keyup.enter="$emit('enter')"
+    :style="`font-size:${getFontSize}`"
   />
 </template>
 
@@ -16,6 +17,13 @@ export default {
     type: String,
     value: String,
     placeholder: String,
+    fontSize: String
+  },
+  computed: {
+    getFontSize() {
+      if(this.fontSize === undefined) return '14px'
+      else return this.fontSize + 'px'
+    }
   },
   data() {
     return {
@@ -48,5 +56,6 @@ export default {
   transition: border 0.5s linear;
   outline: none;
   width: 100%;
+  padding: 5px 10px;
 }
 </style>

@@ -4,21 +4,29 @@ import Home from '@/pages/Home'
 import Test from '@/pages/Test'
 import Login from '@/pages/Login'
 import NotFound from '@/pages/NotFound'
+import {
+  store
+} from '@/store/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {
+        requiresLogin: true
+      }
     },
     {
       path: '/test',
       name: 'Test',
-      component: Test
+      component: Test,
+      meta: {
+        requiresLogin: true
+      }
     },
     {
       path: '/login',
@@ -36,3 +44,15 @@ export default new Router({
     }
   ]
 })
+
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresLogin) && store.state.member.id === -1) {
+    // check 로직 추가
+    next("/login")
+  } else {
+    next()
+  }
+})
+
+export default router
