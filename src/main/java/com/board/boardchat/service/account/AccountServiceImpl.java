@@ -71,7 +71,6 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountEntity login(AccountDto accountDto, HttpServletRequest request) throws ServiceException, NoSuchAlgorithmException {
 
-
         HttpSession session = request.getSession(true);
         if (session.getAttribute("USER") != null) {
             AccountEntity accountEntity = (AccountEntity) session.getAttribute("USER");
@@ -83,18 +82,25 @@ public class AccountServiceImpl implements AccountService {
         String password = String.format("%064x", new BigInteger(1, md.digest()));
 
         //계정 확인
-        Long result = accountRepository.actionLogin(accountDto.getUserId(), password);
-        if(result <= 0) {
-            AccountEntity accountEntity = new AccountEntity();
-            return accountEntity;
+        if(accountDto.getUserId() != null) {
+            if(accountRepository.actionLogin(accountDto.getUserId(), password) > 0) {
+                User userInfo = accountRepository.findUsersBy(accountDto.getUserId());
+                LoginConverter loginConverter = new LoginConverter();
+                AccountEntity accountEntity = loginConverter.convert(userInfo);
+                session.setAttribute("USER", accountEntity);
+                return accountEntity;
+            }
         }
-
-        User userInfo = accountRepository.findUsersBy(accountDto.getUserId());
-        LoginConverter loginConverter = new LoginConverter();
-        AccountEntity accountEntity = loginConverter.convert(userInfo);
-        session.setAttribute("USER", accountEntity);
-
-        return accountEntity;
+        else if(accountDto.getEmail() != null) {
+            if(accountRepository.actionLoginByEmail(accountDto.getEmail(), password) > 0) {
+                User userInfo = accountRepository.findUserByEmail(accountDto.getEmail());
+                LoginConverter loginConverter = new LoginConverter();
+                AccountEntity accountEntity = loginConverter.convert(userInfo);
+                session.setAttribute("USER", accountEntity);
+                return accountEntity;
+            }
+        }
+        return new AccountEntity();
     }
 
     /**

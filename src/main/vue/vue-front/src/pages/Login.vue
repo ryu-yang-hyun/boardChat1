@@ -10,6 +10,8 @@
           type="text"
           :value.sync="validate.email"
           placeholder="이메일 주소"
+          fontSize="17"
+          autocomplete="email"
         />
         <FieldErrorMsg v-if="emailErrMsg" :errMsg="emailErrMsg" />
       </div>
@@ -21,12 +23,14 @@
           :value.sync="validate.password"
           placeholder="비밀번호"
           @enter="login"
+          fontSize="17"
+          autocomplete="current-password"
         />
         <FieldErrorMsg v-if="pwErrMsg" :errMsg="pwErrMsg" />
       </div>
       <Button class="login-button" type="Green" @click="login">로그인</Button>
-      <!-- <div class="v-divider or" />
-      <Button class="login-button" type="Blue" @click="googleLogin"><i class="mdi mdi-google"></i> 구글 계정으로 로그인</Button> -->
+      <div class="v-divider or" />
+      <Button class="login-button" type="Blue" @click="register">회원가입</Button>
     </div>
   </section>
 </template>
@@ -35,6 +39,7 @@
 import FieldErrorMsg from "@/components/FieldErrorMsg";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
+import { reqAuth } from "@/utils/axios"
 
 export default {
   name: "Login",
@@ -56,7 +61,8 @@ export default {
     Button,
   },
   methods: {
-    login() {
+    async login(e) {
+      
       let check = true;
       if (!this.checker("pw")) check = false;
       if (!this.checker("email")) check = false;
@@ -69,6 +75,14 @@ export default {
       // .catch(error => {
       //   this.alert = error.response.data.message;
       // });
+      
+      const result = await reqAuth.login( this.validate.email, this.validate.password)
+      if(result.data.id > 0) {
+        this.$store.commit('setMember', result.data)
+        this.$router.push('/')
+      }
+    },
+    register(e) {
     },
     checker(type) {
       if (type === "email") {
@@ -108,9 +122,6 @@ export default {
       return false;
     },
   },
-  beforeDestroy() {
-    this.unwatch();
-  },
   watch: {
     "validate.email": function () {
       if (this.emailErrMsg) {
@@ -149,8 +160,11 @@ export default {
     .section-input-text {
       display: flex;
       position: relative;
-      height: 30px;
+      height: 35px;
       margin-bottom: 25px;
+      .mdi {
+        margin-top:7px;
+      }
     }
     .login-button {
       margin: 15px 0 15px;

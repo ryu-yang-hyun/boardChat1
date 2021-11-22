@@ -10,7 +10,7 @@ export const store = new Vuex.Store({
     menuOpen: false,
     counter: 0,
     member: {
-      id: 0
+      id: -1
     }
   },
   getters: {
