@@ -31,7 +31,7 @@ export default {
   background:#EAEAEA;
 
   #content-wrap {
-    z-index: 9999;
+    z-index: 999;
     margin: 0 auto;
     width: 100%;
     max-width: 500px;
