@@ -11,5 +11,4 @@ public interface TodoRepository extends JpaRepository<Todo, Long>{
 
     @Query("select t from Todo t where t.user = ?1")
     List<Todo> findAllList (Long id);
-
 }

@@ -2,14 +2,14 @@ package com.board.boardchat.controller.rest;
 
 
 import com.board.boardchat.common.Constant;
-import com.board.boardchat.common.StatusEnum;
 import com.board.boardchat.dto.ResponseEntity;
 import com.board.boardchat.dto.TodoDto;
-import com.board.boardchat.model.Todo;
 import com.board.boardchat.service.todo.TodoService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping(Constant.API_URL + "/todos")
@@ -26,10 +26,9 @@ public class TodoController {
      *  조회
      */
     @GetMapping
-    public ResponseEntity todoList(TodoDto todoDto) {
+    public ResponseEntity todoList(@RequestBody TodoDto todoDto, HttpServletRequest request) {
 
-
-        ResponseEntity result = todoService.todoList(todoDto);
+        ResponseEntity result = todoService.todoList(todoDto, request);
 
         return result;
 
@@ -41,9 +40,21 @@ public class TodoController {
      * 등록
      */
     @PostMapping
-    public ResponseEntity insertTodo(@RequestBody TodoDto todoDto) {
+    public ResponseEntity insertTodo(@RequestBody TodoDto todoDto, HttpServletRequest request) {
 
-        ResponseEntity result = todoService.insertTodo(todoDto);
+        ResponseEntity result = todoService.insertTodo(todoDto, request);
+
+        return result;
+    }
+
+
+    /**
+     * 상태변경
+     */
+    @PostMapping("/status")
+    public ResponseEntity updateStatus(@RequestBody TodoDto todoDto, HttpServletRequest request) {
+
+        ResponseEntity result = todoService.updateStatus(todoDto, request);
 
         return result;
     }

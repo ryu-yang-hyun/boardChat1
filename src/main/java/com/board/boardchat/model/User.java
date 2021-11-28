@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,22 +36,6 @@ public class User {
     /**이름**/
     @Column(name = "NAME", length = 50)
     public String name;
-
-    /**생성자**/
-    @Column(name = "CREATE_BY", length = 20)
-    public String createBy;
-
-    /**수정자**/
-    @Column(name = "MODIFIED_BY", length = 20)
-    public String modifiedBy;
-
-    /**생성날짜**/
-    @Column(name = "CREATE_AT", length = 50)
-    public LocalDateTime createAt = LocalDateTime.now();
-
-    /**수정날짜**/
-    @Column(name = "MODIFIED_AT", length = 50)
-    public LocalDateTime modifiedAt;
 
     /**유저권한**/
     @ManyToMany

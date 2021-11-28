@@ -9,10 +9,14 @@ import com.board.boardchat.model.Todo;
 import com.board.boardchat.model.User;
 import com.board.boardchat.repository.todo.TodoRepository;
 import com.board.boardchat.service.account.AccountService;
+import com.google.gson.Gson;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,18 +30,19 @@ public class TodoServiceImpl implements TodoService{
     @Autowired
     private AccountService accountService;
 
+
     /**
      * 조회
      */
     @Override
-    public ResponseEntity todoList(TodoDto todoDto) throws ServiceException {
+    public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
 
-        ResponseEntity responseEntity = new ResponseEntity();
-        Optional<User> userCheck = accountService.userCheck(todoDto.getUserId());
-        if(!userCheck.isPresent()) {
-            responseEntity.setMessage("회원 정보가 없습니다. 관리자에게 문의해 주세요.");
+        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+        if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
         }
+
+//        todoRepository.
 
 //        responseEntity.setData(todoRepository.findAllList());
 
@@ -50,31 +55,27 @@ public class TodoServiceImpl implements TodoService{
      * 등록
      */
     @Override
-    public ResponseEntity insertTodo(TodoDto todoDto) throws ServiceException {
+    public ResponseEntity insertTodo(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
 
-        ResponseEntity responseEntity = new ResponseEntity();
-        Optional<User> userCheck = accountService.userCheck(todoDto.getUserId());
-        if(!userCheck.isPresent()) {
-            responseEntity.setMessage("회원 정보가 없습니다. 관리자에게 문의해 주세요.");
+        //user, session Check
+        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+
+        if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
         }
 
-        // TODO: 21. 11. 26. SESSION 정보도 예외 처리할 예정
+        Gson gson = new Gson();
+        String checkData = gson.toJson(responseEntity.getData());
+        Todo todo = gson.fromJson(checkData,Todo.class);
 
-        Todo todo = new Todo();
         todo.setTitle(todoDto.getTitle());
         todo.setContent(todoDto.getContent());
         todo.setStatus(TodoType.valueOf(todoDto.getStatus().toUpperCase()));
         todo.setStartTime(todoDto.getStartTime());
         todo.setEndTime(todoDto.getEndTime());
         todo.setOrders(todoDto.getOrders());
-        todo.setCreateBy(userCheck.get().getName());
-
-        userCheck.get().setRoles(customRole(userCheck.get().getRoles()));
-        todo.setUser(userCheck.get());
 
         responseEntity.setData(todoRepository.save(todo));
-        responseEntity.setCode(StatusEnum.OK.toString());
         if(responseEntity == null) {
             responseEntity.setCode(StatusEnum.INTERNAL_SERER_ERROR.toString());
         }
@@ -82,6 +83,34 @@ public class TodoServiceImpl implements TodoService{
         return responseEntity;
     }
 
+    /**
+     * 상태변경
+     */
+    @Override
+    public ResponseEntity updateStatus(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
+
+        //user, session Check
+        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+        if(!"OK".equals(responseEntity.getCode())) {
+            return responseEntity;
+        }
+
+        Gson gson = new Gson();
+        String checkData = gson.toJson(responseEntity.getData());
+        Todo todo = gson.fromJson(checkData,Todo.class);
+
+        //TODO 조회 후 작업 예정
+        todo.setStatus(TodoType.valueOf(todoDto.getStatus().toUpperCase()));
+        todo.setModifiedAt(LocalDateTime.now());
+        todo.setModifiedBy(todo.getCreateBy());
+        todoRepository.save(todo);
+
+        return responseEntity;
+    }
+
+    /**
+     * 권한 add
+     */
     public List<Role> customRole(List<Role> role) {
         List<Role> roles = new ArrayList<>();
         Role cuRoles = new Role();
@@ -92,4 +121,35 @@ public class TodoServiceImpl implements TodoService{
         }
         return roles;
     }
+
+    /**
+     * usercheck
+     */
+    public ResponseEntity sessionUserCheck(TodoDto todoDto, HttpServletRequest request){
+
+        ResponseEntity responseEntity = new ResponseEntity();
+        Todo todo = new Todo();
+        Optional<User> userCheck = accountService.userCheck(todoDto.getUserId());
+        if(!userCheck.isPresent()) {
+            responseEntity.setMessage("회원 정보가 없습니다. 관리자에게 문의해 주세요.");
+            return responseEntity;
+        }
+
+        HttpSession session = request.getSession();
+        if (session.getAttribute("USER") == null) {
+            responseEntity.setMessage("로그인 정보가 없습니다. 관리자에게 문의해 주세요.");
+            return responseEntity;
+        }
+        responseEntity.setCode(StatusEnum.OK.toString());
+        todo.setCreateBy(userCheck.get().getName());
+
+        userCheck.get().setRoles(customRole(userCheck.get().getRoles()));
+        todo.setUser(userCheck.get());
+        responseEntity.setData(todo);
+
+
+        return responseEntity;
+    }
+
+
 }

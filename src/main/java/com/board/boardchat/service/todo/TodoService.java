@@ -4,17 +4,25 @@ import com.board.boardchat.dto.ResponseEntity;
 import com.board.boardchat.dto.TodoDto;
 import org.hibernate.service.spi.ServiceException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 public interface TodoService {
 
     /**
      * 조회
      */
-    public ResponseEntity todoList(TodoDto todoDto) throws ServiceException;
+    public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
 
 
     /**
      * 등록
      */
-    public ResponseEntity insertTodo(TodoDto todoDto) throws ServiceException;
+    public ResponseEntity insertTodo(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
+
+    /**
+     * 상태변경
+     */
+    public ResponseEntity updateStatus(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
 
 }
