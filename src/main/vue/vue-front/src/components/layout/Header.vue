@@ -48,10 +48,8 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import TextField from "../TextField";
 export default {
   components: {
-    TextField,
   },
   computed: {
     ...mapGetters({

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header />
-    <router-view id="content-wrap" />
     <Bottom />
+    <router-view id="content-wrap" />
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
   background:#EAEAEA;
 
   #content-wrap {
-    z-index: 999;
+    z-index: 99999;
     margin: 0 auto;
     width: 100%;
     max-width: 500px;

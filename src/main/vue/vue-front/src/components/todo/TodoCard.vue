@@ -14,7 +14,7 @@
       />
       <i v-else class="mdi mdi-calendar-check" />
     </div>
-    <div class="todo-card-content">
+    <div class="todo-card-content" @click="$emit('select')">
       <div class="title" v-html="todoData.title" />
       <div class="content" v-html="content" />
     </div>
@@ -70,10 +70,13 @@ export default {
   watch: {
     "todoData.order": function (val) {
       if (this.dragEvent) return;
+      console.log("순서바뀜")
+      console.log(val);
       // TODO: 순서 변경 시 ajax를 통해 순서 변경 알림
     },
     "todoData.status": function (val) {
       if (this.dragEvent) return;
+      console.log("상태바뀜")
       console.log(val);
       // TODO: 상태 변경 시 ajax를 통해 상태 변경 알림
     },
