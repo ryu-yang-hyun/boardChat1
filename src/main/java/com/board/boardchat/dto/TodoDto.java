@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class TodoDto extends CommonDto {
 

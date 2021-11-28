@@ -12,6 +12,8 @@ import com.board.boardchat.service.account.AccountService;
 import com.google.gson.Gson;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,20 +37,19 @@ public class TodoServiceImpl implements TodoService{
      * 조회
      */
     @Override
-    public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
+    public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request, Pageable pageable) throws ServiceException {
 
         ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
         if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
         }
 
-//        todoRepository.
+        Gson gson = new Gson();
+        String checkData = gson.toJson(responseEntity.getData());
+        Todo todo = gson.fromJson(checkData,Todo.class);
 
-//        responseEntity.setData(todoRepository.findAllList());
-
-//        Optional<Todo> todoList = todoRepository.findById(todoDto.getUser().getId());
-
-        return null;
+        responseEntity.setData(todoRepository.findTotoList(todo.getUser().getId()));
+        return responseEntity;
     }
 
     /**

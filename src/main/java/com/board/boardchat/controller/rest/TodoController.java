@@ -5,11 +5,11 @@ import com.board.boardchat.common.Constant;
 import com.board.boardchat.dto.ResponseEntity;
 import com.board.boardchat.dto.TodoDto;
 import com.board.boardchat.service.todo.TodoService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping(Constant.API_URL + "/todos")
@@ -26,9 +26,9 @@ public class TodoController {
      *  조회
      */
     @GetMapping
-    public ResponseEntity todoList(@RequestBody TodoDto todoDto, HttpServletRequest request) {
+    public ResponseEntity todoList(@RequestBody TodoDto todoDto, HttpServletRequest request, Pageable pageable) {
 
-        ResponseEntity result = todoService.todoList(todoDto, request);
+        ResponseEntity result = todoService.todoList(todoDto, request, pageable);
 
         return result;
 
