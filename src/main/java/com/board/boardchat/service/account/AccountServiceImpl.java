@@ -90,8 +90,7 @@ public class AccountServiceImpl implements AccountService {
                 session.setAttribute("USER", accountEntity);
                 return accountEntity;
             }
-        }
-        else if(accountDto.getEmail() != null) {
+        } else if(accountDto.getEmail() != null) {
             if(accountRepository.actionLoginByEmail(accountDto.getEmail(), password) > 0) {
                 User userInfo = accountRepository.findUserByEmail(accountDto.getEmail());
                 LoginConverter loginConverter = new LoginConverter();
@@ -117,5 +116,14 @@ public class AccountServiceImpl implements AccountService {
         }
 
         return message;
+    }
+
+    /**
+     * userCheck
+     * @return
+     */
+    @Override
+    public Optional<User> userCheck(Long id) throws ServiceException {
+        return accountRepository.findUserById(id);
     }
 }
