@@ -31,9 +31,6 @@ public class TodoController {
         ResponseEntity result = todoService.todoList(todoDto, request, pageable);
 
         return result;
-
-//        List<Todo> todos = todoService.getTodos(Sort.by(Direction.ASC, "id"));
-//        return ResponseEntity.ok(todos);
     }
 
     /**

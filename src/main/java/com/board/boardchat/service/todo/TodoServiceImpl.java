@@ -99,12 +99,19 @@ public class TodoServiceImpl implements TodoService{
         Gson gson = new Gson();
         String checkData = gson.toJson(responseEntity.getData());
         Todo todo = gson.fromJson(checkData,Todo.class);
+        todo.setId(todoDto.getId());
 
-        //TODO 조회 후 작업 예정
+        Optional<Todo> optionalTodo = todoRepository.findById(todo.getId());
+        if(!optionalTodo.isPresent()) {
+            responseEntity.setMessage("Todo 정보가 없습니다.");
+            return responseEntity;
+        }
+
+        todo = optionalTodo.get();
         todo.setStatus(TodoType.valueOf(todoDto.getStatus().toUpperCase()));
         todo.setModifiedAt(LocalDateTime.now());
-        todo.setModifiedBy(todo.getCreateBy());
-        todoRepository.save(todo);
+        todo.setModifiedBy(todo.getUser().getName());
+        responseEntity.setData(todoRepository.save(todo));
 
         return responseEntity;
     }
