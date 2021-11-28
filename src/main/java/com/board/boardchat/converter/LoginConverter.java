@@ -40,7 +40,7 @@ public class LoginConverter extends AbstractDataConverter<User, AccountEntity> {
         for(Role list : role) {
            cuRoles.setId(list.getId());
            cuRoles.setName(list.getName());
-            roles.add(cuRoles);
+           roles.add(cuRoles);
         }
         return roles;
     }

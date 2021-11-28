@@ -7,6 +7,7 @@ import org.hibernate.service.spi.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
 public interface AccountService {
 
@@ -24,4 +25,12 @@ public interface AccountService {
      * 로그아웃
      */
     public String logout (HttpServletRequest request) throws ServiceException;
+
+    /**
+     * UserCheck
+     * @return
+     */
+    public Optional<User> userCheck (Long id) throws ServiceException;
+
+
 }
