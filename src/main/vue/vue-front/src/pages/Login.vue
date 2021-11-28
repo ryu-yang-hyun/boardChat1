@@ -5,7 +5,7 @@
       <div class="section-input-text">
         <i class="mdi mdi-at --grey"></i>
         <!-- <input type="text" placeholder="이메일주소"> -->
-        <TextField
+        <InputField
           ref="email"
           type="text"
           :value.sync="validate.email"
@@ -17,7 +17,7 @@
       </div>
       <div class="section-input-text">
         <i class="mdi mdi-lock-open --grey"></i>
-        <TextField
+        <InputField
           ref="pw"
           type="password"
           :value.sync="validate.password"
@@ -37,7 +37,7 @@
 
 <script>
 import FieldErrorMsg from "@/components/FieldErrorMsg";
-import TextField from "@/components/TextField";
+import InputField from "@/components/InputField";
 import Button from "@/components/Button";
 import { reqAuth } from "@/utils/axios"
 
@@ -57,7 +57,7 @@ export default {
   },
   components: {
     FieldErrorMsg,
-    TextField,
+    InputField,
     Button,
   },
   methods: {
@@ -75,7 +75,7 @@ export default {
       // .catch(error => {
       //   this.alert = error.response.data.message;
       // });
-      
+
       const result = await reqAuth.login( this.validate.email, this.validate.password)
       if(result.data.id > 0) {
         this.$store.commit('setMember', result.data)
