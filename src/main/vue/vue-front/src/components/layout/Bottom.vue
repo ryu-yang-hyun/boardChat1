@@ -32,24 +32,24 @@ export default {
           },
         },
         {
-          title: "메뉴1",
-          link: "/test",
+          title: "Todo",
+          link: "/todo",
           icon: {
             default: "mdi-chart-box-outline",
             active: "mdi-chart-box",
           },
         },
         {
-          title: "메뉴2",
-          link: "/favorite",
+          title: "Board",
+          link: "/board",
           icon: {
             default: "mdi-star-outline",
             active: "mdi-star",
           },
         },
         {
-          title: "메뉴3",
-          link: "/comment",
+          title: "Chat",
+          link: "/chat",
           icon: {
             default: "mdi-comment-alert-outline",
             active: "mdi-comment-alert",

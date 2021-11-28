@@ -11,6 +11,9 @@ export const store = new Vuex.Store({
     counter: 0,
     member: {
       id: -1
+    },
+    todo: {
+      dragEvent: false
     }
   },
   getters: {
@@ -19,6 +22,9 @@ export const store = new Vuex.Store({
     },
     getMenuOpen: function (state) {
       return state.menuOpen
+    },
+    getDragEvent: function (state) {
+      return state.todo.dragEvent
     }
   },
   mutations: {
@@ -33,6 +39,9 @@ export const store = new Vuex.Store({
     },
     toggleMenuOpen: function (state) {
       state.menuOpen = !state.menuOpen
+    },
+    setDragEvent: function (state, value) {
+      state.todo.dragEvent = value
     }
   },
   actions: {
@@ -47,6 +56,12 @@ export const store = new Vuex.Store({
     },
     toggleMenu: function (context) {
       context.commit('toggleMenuOpen')
+    },
+    dragStart: function (context) {
+      context.commit('setDragEvent', true)
+    },
+    dragEnd: function (context) {
+      context.commit('setDragEvent', false)
     }
     //   getServerData: function (context) {
     //     return axios.get("sample.json").then(function() {

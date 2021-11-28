@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class HomeController {
 
+//    @GetMapping
+//    public String home() {
+//        return "redirect:/v";
+//    }
+
     @GetMapping
-    public String vue(){
-        return "vue/index";
+    public String vue() {
+        return "/vue/index";
     }
 }
