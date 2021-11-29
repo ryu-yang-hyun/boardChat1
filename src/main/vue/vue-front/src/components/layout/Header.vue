@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="content">
-      <span>타이틀!!!!</span>
+      <span>H201803030_류양현</span>
     </div>
     <div class="left">
       <i class="mdi" :class="menuClass" @click="clickMenu"></i>
