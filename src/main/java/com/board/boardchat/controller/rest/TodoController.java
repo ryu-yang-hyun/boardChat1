@@ -48,7 +48,7 @@ public class TodoController {
     /**
      * 상세
      */
-    @PostMapping
+    @PostMapping("/details")
     public ResponseEntity details(@RequestBody TodoDto todoDto, HttpServletRequest request) {
 
         ResponseEntity result = todoService.details(todoDto, request);
