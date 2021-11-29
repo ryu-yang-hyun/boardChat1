@@ -20,6 +20,16 @@ public interface TodoService {
     public ResponseEntity insertTodo(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
 
     /**
+     * 상세
+     */
+    public ResponseEntity details(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
+
+    /**
+     * 수정
+     */
+    public ResponseEntity updateModify(Long todoId, HttpServletRequest request) throws ServiceException;
+
+    /**
      * 상태변경
      */
     public ResponseEntity updateStatus(TodoDto todoDto, HttpServletRequest request) throws ServiceException;

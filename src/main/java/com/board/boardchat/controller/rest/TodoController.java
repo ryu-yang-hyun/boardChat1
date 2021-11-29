@@ -6,6 +6,7 @@ import com.board.boardchat.dto.ResponseEntity;
 import com.board.boardchat.dto.TodoDto;
 import com.board.boardchat.service.todo.TodoService;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -44,6 +45,34 @@ public class TodoController {
         return result;
     }
 
+    /**
+     * 상세
+     */
+    @PostMapping
+    public ResponseEntity details(@RequestBody TodoDto todoDto, HttpServletRequest request) {
+
+        ResponseEntity result = todoService.details(todoDto, request);
+
+        return result;
+    }
+
+    /**
+     *수정
+     */
+    @PostMapping("/{id}")
+    public ResponseEntity updateModify(@PathVariable("id") Long todoId, HttpServletRequest request) throws Exception {
+
+        ResponseEntity result = todoService.updateModify(todoId, request);
+
+//        Todo todo = todoService.findTodoById(id);
+//
+//        Boolean isComplete = todo.getIsComplete() ? false : true;
+//        todo.setIsComplete(isComplete);
+//        todoService.postTodo(todo);
+
+//        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+        return result;
+    }
 
     /**
      * 상태변경
@@ -55,20 +84,7 @@ public class TodoController {
 
         return result;
     }
-//
-//    /*
-//     *     수정
-//     */
-//    @PutMapping("/{id}")
-//    public ResponseEntity<String> putTodo(@PathVariable("id") Long id) throws Exception {
-//        Todo todo = todoService.findTodoById(id);
-//
-//        Boolean isComplete = todo.getIsComplete() ? false : true;
-//        todo.setIsComplete(isComplete);
-//        todoService.postTodo(todo);
-//
-//        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-//    }
+
 //
 //    /*
 //     *     삭제

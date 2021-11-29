@@ -1,12 +1,12 @@
 {
   "data": [
     {
-      "createBy": null,
+      "createBy": "테스터",
       "modifiedBy": null,
-      "createAt": "2021-11-26T01:57:02.056",
+      "createAt": "2021-11-30T02:49:32.295",
       "modifiedAt": null,
       "delYn": null,
-      "id": 1,
+      "id": 14,
       "title": "투두테스트",
       "content": "오늘은 투두를 할까 투드를할까??",
       "status": "TODO",
@@ -16,153 +16,13 @@
       "user": {
         "createBy": null,
         "modifiedBy": null,
-        "createAt": "2021-11-21T21:10:25.733",
+        "createAt": "2021-11-25T20:33:08.188",
         "modifiedAt": null,
         "delYn": null,
-        "id": 1,
-        "userId": "ryuyang",
-        "email": "test1@gmail.com",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "enabled": null,
-        "gender": "남자",
-        "name": "테스터",
-        "roles": [
-          {
-            "id": 1,
-            "name": "ROLE_USER",
-            "users": null
-          }
-        ]
-      }
-    },
-    {
-      "createBy": null,
-      "modifiedBy": null,
-      "createAt": "2021-11-26T02:08:22.268",
-      "modifiedAt": null,
-      "delYn": null,
-      "id": 2,
-      "title": "투두테스트",
-      "content": "오늘은 투두를 할까 투드를할까??",
-      "status": "TODO",
-      "orders": 1,
-      "startTime": "2021-11-25T10:49:31",
-      "endTime": "2021-11-25T11:00:10",
-      "user": {
-        "createBy": null,
-        "modifiedBy": null,
-        "createAt": "2021-11-21T21:10:25.733",
-        "modifiedAt": null,
-        "delYn": null,
-        "id": 1,
-        "userId": "ryuyang",
-        "email": "test1@gmail.com",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "enabled": null,
-        "gender": "남자",
-        "name": "테스터",
-        "roles": [
-          {
-            "id": 1,
-            "name": "ROLE_USER",
-            "users": null
-          }
-        ]
-      }
-    },
-    {
-      "createBy": null,
-      "modifiedBy": null,
-      "createAt": "2021-11-26T02:08:48.642",
-      "modifiedAt": null,
-      "delYn": null,
-      "id": 3,
-      "title": "투두테스트",
-      "content": "오늘은 투두를 할까 투드를할까??",
-      "status": "TODO",
-      "orders": 1,
-      "startTime": "2021-11-25T10:49:31",
-      "endTime": "2021-11-25T11:00:10",
-      "user": {
-        "createBy": null,
-        "modifiedBy": null,
-        "createAt": "2021-11-21T21:10:25.733",
-        "modifiedAt": null,
-        "delYn": null,
-        "id": 1,
-        "userId": "ryuyang",
-        "email": "test1@gmail.com",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "enabled": null,
-        "gender": "남자",
-        "name": "테스터",
-        "roles": [
-          {
-            "id": 1,
-            "name": "ROLE_USER",
-            "users": null
-          }
-        ]
-      }
-    },
-    {
-      "createBy": null,
-      "modifiedBy": null,
-      "createAt": "2021-11-26T02:41:40.073",
-      "modifiedAt": null,
-      "delYn": null,
-      "id": 4,
-      "title": "투두테스트",
-      "content": "오늘은 투두를 할까 투드를할까??",
-      "status": "TODO",
-      "orders": 1,
-      "startTime": "2021-11-25T10:49:31",
-      "endTime": "2021-11-25T11:00:10",
-      "user": {
-        "createBy": null,
-        "modifiedBy": null,
-        "createAt": "2021-11-21T21:10:25.733",
-        "modifiedAt": null,
-        "delYn": null,
-        "id": 1,
-        "userId": "ryuyang",
-        "email": "test1@gmail.com",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "enabled": null,
-        "gender": "남자",
-        "name": "테스터",
-        "roles": [
-          {
-            "id": 1,
-            "name": "ROLE_USER",
-            "users": null
-          }
-        ]
-      }
-    },
-    {
-      "createBy": null,
-      "modifiedBy": null,
-      "createAt": "2021-11-26T03:32:14.432",
-      "modifiedAt": null,
-      "delYn": null,
-      "id": 5,
-      "title": "투두테스트",
-      "content": "오늘은 투두를 할까 투드를할까??",
-      "status": "TODO",
-      "orders": 1,
-      "startTime": "2021-11-25T10:49:31",
-      "endTime": "2021-11-25T11:00:10",
-      "user": {
-        "createBy": null,
-        "modifiedBy": null,
-        "createAt": "2021-11-21T21:10:25.733",
-        "modifiedAt": null,
-        "delYn": null,
-        "id": 1,
-        "userId": "ryuyang",
-        "email": "test1@gmail.com",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "id": 3,
+        "userId": "ryuyang123",
+        "email": "test@gmail.com",
+        "password": "1718c24b10aeb8099e3fc44960ab6949ab76a267352459f203ea1036bec382c2",
         "enabled": null,
         "gender": "남자",
         "name": "테스터",
@@ -177,83 +37,48 @@
     },
     {
       "createBy": "테스터",
-      "modifiedBy": null,
-      "createAt": "2021-11-28T19:06:44.774",
-      "modifiedAt": null,
-      "delYn": null,
-      "id": 6,
-      "title": "투두테스트",
-      "content": "오늘은 투두를 할까 투드를할까??",
-      "status": "TODO",
-      "orders": 1,
-      "startTime": "2021-11-25T10:49:31",
-      "endTime": "2021-11-25T11:00:10",
-      "user": {
-        "createBy": null,
-        "modifiedBy": null,
-        "createAt": "2021-11-21T21:10:25.733",
-        "modifiedAt": null,
-        "delYn": null,
-        "id": 1,
-        "userId": "ryuyang",
-        "email": "test1@gmail.com",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "enabled": null,
-        "gender": "남자",
-        "name": "테스터",
-        "roles": [
-          {
-            "id": 1,
-            "name": "ROLE_USER",
-            "users": null
-          }
-        ]
-      }
-    },
-    {
-      "createBy": "테스터",
-      "modifiedBy": null,
-      "createAt": "2021-11-28T22:47:29.736",
-      "modifiedAt": null,
-      "delYn": null,
-      "id": 12,
-      "title": "투두테스트",
-      "content": "오늘은 투두를 할까 투드를할까??",
-      "status": "TODO",
-      "orders": 1,
-      "startTime": "2021-11-25T10:49:31",
-      "endTime": "2021-11-25T11:00:10",
-      "user": {
-        "createBy": null,
-        "modifiedBy": null,
-        "createAt": "2021-11-21T21:10:25.733",
-        "modifiedAt": null,
-        "delYn": null,
-        "id": 1,
-        "userId": "ryuyang",
-        "email": "test1@gmail.com",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "enabled": null,
-        "gender": "남자",
-        "name": "테스터",
-        "roles": [
-          {
-            "id": 1,
-            "name": "ROLE_USER",
-            "users": null
-          }
-        ]
-      }
-    },
-    {
-      "createBy": "테스터",
-      "modifiedBy": null,
+      "modifiedBy": "테스터",
       "createAt": "2021-11-28T23:10:56.896",
-      "modifiedAt": null,
+      "modifiedAt": "2021-11-30T03:10:02.013",
       "delYn": null,
       "id": 13,
       "title": "투두테스트",
       "content": "오늘은 투두를 할까 투드를할까??",
+      "status": "IN_PROGRESS",
+      "orders": 1,
+      "startTime": "2021-11-25T10:49:31",
+      "endTime": "2021-11-25T11:00:10",
+      "user": {
+        "createBy": null,
+        "modifiedBy": null,
+        "createAt": "2021-11-25T20:33:08.188",
+        "modifiedAt": null,
+        "delYn": null,
+        "id": 3,
+        "userId": "ryuyang123",
+        "email": "test@gmail.com",
+        "password": "1718c24b10aeb8099e3fc44960ab6949ab76a267352459f203ea1036bec382c2",
+        "enabled": null,
+        "gender": "남자",
+        "name": "테스터",
+        "roles": [
+          {
+            "id": 1,
+            "name": "ROLE_USER",
+            "users": null
+          }
+        ]
+      }
+    },
+    {
+      "createBy": "테스터",
+      "modifiedBy": null,
+      "createAt": "2021-11-30T03:11:15.549",
+      "modifiedAt": null,
+      "delYn": null,
+      "id": 15,
+      "title": "투두테스트",
+      "content": "오늘은 투두를 할까 투드를할까??",
       "status": "TODO",
       "orders": 1,
       "startTime": "2021-11-25T10:49:31",
@@ -261,13 +86,13 @@
       "user": {
         "createBy": null,
         "modifiedBy": null,
-        "createAt": "2021-11-21T21:10:25.733",
+        "createAt": "2021-11-25T20:33:08.188",
         "modifiedAt": null,
         "delYn": null,
-        "id": 1,
-        "userId": "ryuyang",
-        "email": "test1@gmail.com",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "id": 3,
+        "userId": "ryuyang123",
+        "email": "test@gmail.com",
+        "password": "1718c24b10aeb8099e3fc44960ab6949ab76a267352459f203ea1036bec382c2",
         "enabled": null,
         "gender": "남자",
         "name": "테스터",
