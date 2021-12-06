@@ -27,7 +27,7 @@ public interface TodoService {
     /**
      * 수정
      */
-    public ResponseEntity updateModify(Long todoId, HttpServletRequest request) throws ServiceException;
+    public ResponseEntity updateModify(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
 
     /**
      * 상태변경

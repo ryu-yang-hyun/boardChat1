@@ -96,22 +96,20 @@ public class TodoServiceImpl implements TodoService{
         if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
         }
+        Gson gson = new Gson();
+        String checkData = gson.toJson(responseEntity.getData());
+        Todo todo = gson.fromJson(checkData,Todo.class);
+        todo.setId(todoDto.getId());
 
-//        Gson gson = new Gson();
-//        String checkData = gson.toJson(responseEntity.getData());
-//        Todo todo = gson.fromJson(checkData,Todo.class);
-//
-//        todo.setTitle(todoDto.getTitle());
-//        todo.setContent(todoDto.getContent());
-//        todo.setStatus(TodoType.valueOf(todoDto.getStatus().toUpperCase()));
-//        todo.setStartTime(todoDto.getStartTime());
-//        todo.setEndTime(todoDto.getEndTime());
-//        todo.setOrders(todoDto.getOrders());
-//
-//        responseEntity.setData(todoRepository.save(todo));
-//        if(responseEntity == null) {
-//            responseEntity.setCode(StatusEnum.INTERNAL_SERER_ERROR.toString());
-//        }
+        Optional<Todo> optionalTodo = todoRepository.findById(todo.getId());
+        if(!optionalTodo.isPresent()) {
+            responseEntity.setMessage("Todo 정보가 없습니다.");
+            return responseEntity;
+        }
+
+        optionalTodo.get().setUser(todo.getUser());
+        todo = optionalTodo.get();
+        responseEntity.setData(todo);
 
         return responseEntity;
     }
@@ -120,31 +118,31 @@ public class TodoServiceImpl implements TodoService{
      * 수정
      */
     @Override
-    public ResponseEntity updateModify(Long todoId, HttpServletRequest request) throws ServiceException {
+    public ResponseEntity updateModify(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
 
         //user, session Check
-        ResponseEntity responseEntity = new ResponseEntity();
-//        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
-//        if(!"OK".equals(responseEntity.getCode())) {
-//            return responseEntity;
-//        }
-//
-//        Gson gson = new Gson();
-//        String checkData = gson.toJson(responseEntity.getData());
-//        Todo todo = gson.fromJson(checkData,Todo.class);
-//        todo.setId(todoDto.getId());
-//
-//        Optional<Todo> optionalTodo = todoRepository.findById(todo.getId());
-//        if(!optionalTodo.isPresent()) {
-//            responseEntity.setMessage("Todo 정보가 없습니다.");
-//            return responseEntity;
-//        }
-//
-//        todo = optionalTodo.get();
-//        todo.setStatus(TodoType.valueOf(todoDto.getStatus().toUpperCase()));
-//        todo.setModifiedAt(LocalDateTime.now());
-//        todo.setModifiedBy(todo.getUser().getName());
-//        responseEntity.setData(todoRepository.save(todo));
+        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+
+        if(!"OK".equals(responseEntity.getCode())) {
+            return responseEntity;
+        }
+        Gson gson = new Gson();
+        String checkData = gson.toJson(responseEntity.getData());
+        Todo todo = gson.fromJson(checkData,Todo.class);
+        todo.setId(todoDto.getId());
+
+        Optional<Todo> optionalTodo = todoRepository.findById(todo.getId());
+        if(!optionalTodo.isPresent()) {
+            responseEntity.setMessage("Todo 정보가 없습니다.");
+            return responseEntity;
+        }
+
+        todo = optionalTodo.get();
+        todo.setTitle(todoDto.getTitle());
+        todo.setContent(todoDto.getContent());
+        todo.setModifiedAt(LocalDateTime.now());
+        todo.setModifiedBy(todo.getUser().getName());
+        responseEntity.setData(todoRepository.save(todo));
 
         return responseEntity;
     }

@@ -6,7 +6,6 @@ import com.board.boardchat.dto.ResponseEntity;
 import com.board.boardchat.dto.TodoDto;
 import com.board.boardchat.service.todo.TodoService;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -59,18 +58,11 @@ public class TodoController {
     /**
      *수정
      */
-    @PostMapping("/{id}")
-    public ResponseEntity updateModify(@PathVariable("id") Long todoId, HttpServletRequest request) throws Exception {
+    @PostMapping("/modify")
+    public ResponseEntity updateModify(@RequestBody TodoDto todoDto, HttpServletRequest request) throws Exception {
 
-        ResponseEntity result = todoService.updateModify(todoId, request);
+        ResponseEntity result = todoService.updateModify(todoDto, request);
 
-//        Todo todo = todoService.findTodoById(id);
-//
-//        Boolean isComplete = todo.getIsComplete() ? false : true;
-//        todo.setIsComplete(isComplete);
-//        todoService.postTodo(todo);
-
-//        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
         return result;
     }
 
@@ -84,15 +76,4 @@ public class TodoController {
 
         return result;
     }
-
-//
-//    /*
-//     *     삭제
-//     */
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<String> deleteTodo(@PathVariable("id") Long id) throws Exception {
-//        todoService.deleteTodo(id);
-//
-//        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-//    }
 }
