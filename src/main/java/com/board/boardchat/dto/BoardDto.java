@@ -1,18 +1,18 @@
 package com.board.boardchat.dto;
 
-public class BoardDto {
+public class BoardDto extends CommonDto {
 
-    private String name;
+    private Long id;
     private String title;
     private String content;
     private String count;
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

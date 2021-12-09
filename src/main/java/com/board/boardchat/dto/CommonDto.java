@@ -8,8 +8,8 @@ public class CommonDto {
     private String modifiedBy;
     private LocalDateTime createAt;
     private LocalDateTime modifiedAt;
-    private Long size = 10L;
-    private Long page = 0L;
+    private int size = 10;
+    private int page = 0;
 
     public String getCreateBy() {
         return createBy;
@@ -43,19 +43,19 @@ public class CommonDto {
         this.modifiedAt = modifiedAt;
     }
 
-    public Long getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(Long size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
-    public Long getPage() {
+    public int getPage() {
         return page;
     }
 
-    public void setPage(Long page) {
+    public void setPage(int page) {
         this.page = page;
     }
 }

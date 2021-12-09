@@ -1,15 +1,32 @@
 package com.board.boardchat.service.board;
 
-//import com.board.boardchat.dto.UserDto;
 import com.board.boardchat.dto.BoardDto;
+import com.board.boardchat.dto.ResponseEntity;
+import com.board.boardchat.model.Board;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.data.domain.Page;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface BoardService {
 
-    String boardCreate (BoardDto boardDto) throws ServiceException;
+    /**
+     * 조회
+     */
+    public ResponseEntity boardList (BoardDto boardDto, HttpServletRequest request) throws ServiceException;
 
-//    void memberCreate(UserDto userDto) throws ServiceException;
-//    Page<UserDto> memberList(UserDto userDto) throws ServiceException;
+    /**
+     * 등록
+     */
+    public ResponseEntity insertBoard (BoardDto boardDto, HttpServletRequest request) throws  ServiceException;
 
+    /**
+     * 상세
+     */
+    public ResponseEntity details(BoardDto boardDto, HttpServletRequest request) throws ServiceException;
+
+    /**
+     * 수정
+     */
+    public ResponseEntity updateModify(BoardDto boardDto, HttpServletRequest request) throws ServiceException;
 }
