@@ -39,7 +39,7 @@ public class TodoServiceImpl implements TodoService{
     @Override
     public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request, Pageable pageable) throws ServiceException {
 
-        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+        ResponseEntity responseEntity = sessionUserCheck(request);
         if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
         }
@@ -59,7 +59,7 @@ public class TodoServiceImpl implements TodoService{
     public ResponseEntity insertTodo(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
 
         //user, session Check
-        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+        ResponseEntity responseEntity = sessionUserCheck(request);
 
         if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
@@ -91,7 +91,7 @@ public class TodoServiceImpl implements TodoService{
     public ResponseEntity details(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
 
         //user, session Check
-        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+        ResponseEntity responseEntity = sessionUserCheck(request);
 
         if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
@@ -121,7 +121,7 @@ public class TodoServiceImpl implements TodoService{
     public ResponseEntity updateModify(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
 
         //user, session Check
-        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+        ResponseEntity responseEntity = sessionUserCheck(request);
 
         if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
@@ -154,7 +154,7 @@ public class TodoServiceImpl implements TodoService{
     public ResponseEntity updateStatus(TodoDto todoDto, HttpServletRequest request) throws ServiceException {
 
         //user, session Check
-        ResponseEntity responseEntity = sessionUserCheck(todoDto, request);
+        ResponseEntity responseEntity = sessionUserCheck(request);
         if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
         }
@@ -197,7 +197,7 @@ public class TodoServiceImpl implements TodoService{
     /**
      * usercheck
      */
-    public ResponseEntity sessionUserCheck(TodoDto todoDto, HttpServletRequest request){
+    public ResponseEntity sessionUserCheck(HttpServletRequest request){
 
         ResponseEntity responseEntity = new ResponseEntity();
         HttpSession session = request.getSession();
