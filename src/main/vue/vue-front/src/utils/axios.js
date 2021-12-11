@@ -31,6 +31,55 @@ const reqAuth = {
     }
 }
 
+const reqTodo = {
+    list: () => {
+        const config = {
+            method: 'GET',
+            url: '/api/todos'
+        };
+        return awaitApi( config );
+    },
+    status: ( id, status ) => {
+        const config = {
+            method: 'POST',
+            url: '/api/todos/status',
+            data: { id: id, status: status }
+        };
+        return awaitApi( config );
+    },
+    modify: ( item ) => {
+        const config = {
+            method: 'POST',
+            url: '/api/todos/modify',
+            data: item
+        }
+        return awaitApi( config );
+    },
+    insert: ( item ) => {
+        const config = {
+            method: 'POST',
+            url: '/api/todos',
+            data: item
+        }
+        return awaitApi( config );
+    },
+    order: ( item ) => {
+        const config = {
+            method: 'PATCH',
+            url: `/api/todos/order/${item.id}/${item.orders}`
+        }
+        return awaitApi( config );
+    },
+    remove: ( id ) => {
+        const config = {
+            method: 'DELETE',
+            url: `/api/todos/${id}`
+        }
+        return awaitApi( config );
+    }
+}
+
 export {
-    reqAuth
+    reqAuth,
+    reqTodo
 }

@@ -26,12 +26,20 @@ public class TodoController {
      *  조회
      */
     @GetMapping
-    public ResponseEntity todoList(@RequestBody TodoDto todoDto, HttpServletRequest request, Pageable pageable) {
+    public ResponseEntity todoList(HttpServletRequest request) {
 
-        ResponseEntity result = todoService.todoList(todoDto, request, pageable);
+        ResponseEntity result = todoService.todoList(request);
 
         return result;
     }
+//    @GetMapping
+//    public ResponseEntity todoList(@RequestBody TodoDto todoDto, HttpServletRequest request, Pageable pageable) {
+//
+//        ResponseEntity result = todoService.todoList(todoDto, request, pageable);
+//
+//        return result;
+//    }
+
 
     /**
      * 등록
@@ -55,6 +63,11 @@ public class TodoController {
         return result;
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id, HttpServletRequest request) {
+        return todoService.delete( id, request );
+    }
+
     /**
      *수정
      */
@@ -76,4 +89,16 @@ public class TodoController {
 
         return result;
     }
+
+    /**
+     * 상태변경
+     */
+    @PatchMapping("/order/{todoId}/{order}")
+    public ResponseEntity updateOrder(@PathVariable Long todoId, @PathVariable Long order, HttpServletRequest request) {
+
+        ResponseEntity result = todoService.updateOrders(todoId, order, request);
+
+        return result;
+    }
+
 }

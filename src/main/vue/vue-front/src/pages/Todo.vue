@@ -15,9 +15,14 @@
           @select="clickCard(item)"
         />
       </draggable>
-      <i class="mdi mdi-plus-thick" @click="popupToggle"></i>
-      <LayerPopup v-if="popup" :title="popupTitle" @close="popupToggle">
-        <TodoContent :content="selectedContent" />
+      <i class="mdi mdi-plus-thick" @click="newTodo"></i>
+      <LayerPopup v-if="popup" :title="popupTitle" @close="closePopup">
+        <TodoContent
+          :content="selectedContent"
+          @close="closePopup"
+          @save="save"
+          @remove="remove"
+        />
       </LayerPopup>
     </div>
   </div>
@@ -30,13 +35,14 @@ import TodoCard from "@/components/todo/TodoCard";
 import TodoContent from "@/components/todo/TodoContent";
 import LayerPopup from "@/components/layout/LayerPopup";
 import draggable from "vuedraggable";
+import { reqTodo } from "@/utils/axios"
 export default {
   name: "Todo",
   components: {
     TodoCard,
     draggable,
     LayerPopup,
-    TodoContent
+    TodoContent,
   },
   computed: {
     ...mapGetters({
@@ -46,71 +52,120 @@ export default {
       return {
         id: -1,
         title: "",
-        statud: Types.TodoStatus.TODO,
-        order: this.todoLists.length + 1,
-        startTime: "",
-        endTime: "",
-        opend: false
-      }
+        status: Types.TodoStatus.TODO,
+        orders: this.todoLists.length + 1,
+        startTime: `${(new Date()).toLocaleDateString().replaceAll(". ", "-").replaceAll(".", "")} 00:00:00`,
+        endTime: `${(new Date()).toLocaleDateString().replaceAll(". ", "-").replaceAll(".", "")} 00:00:00`,
+        opend: false,
+      };
     },
     popupTitle() {
-      return this.selectedContent.id === -1 ? 'NEW TO-DO' : 'EDIT TO-DO'
-    }
+      return this.selectedContent.id === -1 ? "NEW TO-DO" : "EDIT TO-DO";
+    },
+  },
+  async mounted() {
+    const result = await reqTodo.list()
+    this.todoLists.push(...result.data.map( this.convertItem ))
+    this.todoLists.sort( (a, b) => a.orders - b.orders )
   },
   data() {
     return {
       msg: "Todo",
       popup: false,
       selectedContent: {},
+      origin: {},
       todoLists: [
-        {
-          id: 1,
-          title: "1번 타이틀 입니다.",
-          content: "반갑습니다.",
-          status: Types.TodoStatus.TODO,
-          order: 1,
-          startTime: "",
-          endTime: "",
-          opend: false,
-        },
-        {
-          id: 1,
-          title: "2번 타이틀 입니다.",
-          content: "반갑습니다. 열려라 참깨! 으하하하하하하하 \n크크크크크 풉풉풉풉 하하하하 반갑습니다.\n열려라 참깨! 으하하하하하하하 크크크크크 풉풉풉풉 하하하하 반갑습니다. 열려라 참깨! 으하하하하하하하 크크크크크 풉풉풉풉 하하하하 반갑습니다. 열려라 참깨! 으하하하하하하하 크크크크크 풉풉풉풉 하하하하",
-          status: Types.TodoStatus.IN_PROGRESS,
-          order: 2,
-          startTime: "",
-          endTime: "",
-          opend: true,
-        },
-        {
-          id: 1,
-          title: "3번 타이틀 입니다.",
-          content: "반갑습니다.",
-          status: Types.TodoStatus.DONE,
-          order: 3,
-          startTime: "",
-          endTime: "",
-          opend: false,
-        },
+        // {
+        //   id: 1,
+        //   title: "1번 타이틀 입니다.",
+        //   content: "반갑습니다.",
+        //   status: Types.TodoStatus.TODO,
+        //   order: 1,
+        //   startTime: null,
+        //   endTime: null,
+        //   opend: false,
+        // },
+        // {
+        //   id: 1,
+        //   title: "2번 타이틀 입니다.",
+        //   content:
+        //     "반갑습니다. 열려라 참깨! 으하하하하하하하 \n크크크크크 풉풉풉풉 하하하하 반갑습니다.\n열려라 참깨! 으하하하하하하하 크크크크크 풉풉풉풉 하하하하 반갑습니다. 열려라 참깨! 으하하하하하하하 크크크크크 풉풉풉풉 하하하하 반갑습니다. 열려라 참깨! 으하하하하하하하 크크크크크 풉풉풉풉 하하하하",
+        //   status: Types.TodoStatus.IN_PROGRESS,
+        //   order: 2,
+        //   startTime: null,
+        //   endTime: null,
+        //   opend: true,
+        // },
+        // {
+        //   id: 1,
+        //   title: "3번 타이틀 입니다.",
+        //   content: "반갑습니다.",
+        //   status: Types.TodoStatus.DONE,
+        //   order: 3,
+        //   startTime: null,
+        //   endTime: null,
+        //   opend: false,
+        // },
       ],
     };
   },
   methods: {
-    popupToggle: function () {
-      this.selectedContent = this.newContent;
-      this.popup = !this.popup;
+    convertItem: function ( x ) {
+      x.opend = false;
+      x.startTime = x.startTime ? x.startTime : new Date()
+      x.endTime = x.endTime ? x.endTime : new Date()
+      x.startTime = `${(new Date(x.startTime)).toLocaleDateString().replaceAll(". ", "-").replaceAll(".", "")} 00:00:00`
+      x.endTime = `${(new Date(x.endTime)).toLocaleDateString().replaceAll(". ", "-").replaceAll(".", "")} 00:00:00`
+      return x;
     },
-    clickCard: function(item) {
+    newTodo: function () {
+      console.log("new todo");
+      this.selectedContent = this.newContent;
+      this.popup = true;
+    },
+    closePopup: function () {
+      if (this.selectedContent.id > 0) {
+        this.selectedContent.title = this.origin.title;
+        this.selectedContent.content = this.origin.content;
+        this.selectedContent.status = this.origin.status;
+        this.selectedContent.startTime = this.origin.startTime;
+        this.selectedContent.endTime = this.origin.endTime;
+      }
+      this.popup = false;
+    },
+    clickCard: function (item) {
+      this.origin = JSON.parse(JSON.stringify(item));
       this.selectedContent = item;
-      this.popup = !this.popup;
+      this.popup = true;
+    },
+    save: async function (item) {
+      if(this.selectedContent.id === -1) {
+        const result = await reqTodo.insert(item)
+        this.todoLists.push(this.convertItem(result.data))
+      }
+      else {
+        const result = await reqTodo.modify(item)
+        this.todoLists.filter( x => x.id === item.id )[0] = this.convertItem(result.data)
+      }
+      this.popup = false;
+    },
+    remove: async function() {
+      reqTodo.remove(this.selectedContent.id)
+
+      this.todoLists = this.todoLists.filter( x => x.id !== this.selectedContent.id )
+      this.closePopup()
     },
     dragStart: function () {
       this.setDragStart();
     },
     dragEnd: function () {
       this.setDragEnd();
-      this.todoLists.forEach((x, i) => (x.order = i + 1));
+      this.todoLists.forEach((x, i) => {
+        if( x.orders !== i + 1) {
+          x.orders = i + 1;
+          reqTodo.order( x );
+        }
+      });
     },
     ...mapActions({
       setDragStart: "dragStart",
@@ -125,8 +180,8 @@ export default {
 .todo-wrap {
   .todo {
     position: relative;
-    width:100%;
-    height:calc(100vh - 144px);
+    width: 100%;
+    height: calc(100vh - 144px);
     .mdi.mdi-plus-thick {
       position: absolute;
       right: 0px;

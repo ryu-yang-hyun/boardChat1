@@ -18,8 +18,12 @@ export default {
           return "background: rgb(0, 196, 196)";
         case "Blue":
           return "background: rgb(26, 115, 232)";
+        case "Gray":
+          return "background: #999;"
+        case "Red":
+          return "background: rgb(235 42 42);"
       }
-      return "";
+      return "background: #333;";
     }
   }
 };

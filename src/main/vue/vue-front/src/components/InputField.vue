@@ -20,19 +20,32 @@
       :placeholder="placeholder"
       :style="`font-size:${getFontSize};height:${getHeight}`"
     />
+    <DatePicker
+      v-if="type === 'date'"
+      v-model="text"
+      @change="datePickerUpdate"
+      :style="`font-size:${getFontSize}`"
+    />
+
     <div class="textfield-title" v-if="title">{{ placeholder }}</div>
   </div>
 </template>
 
 <script>
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
+import "vue2-datepicker/locale/ko";
 export default {
   props: {
     type: String,
-    value: String,
+    value: String | Date,
     placeholder: String,
     fontSize: String,
     titleShow: String,
-    height: String
+    height: String,
+  },
+  components: {
+    DatePicker,
   },
   computed: {
     getFontSize() {
@@ -53,17 +66,39 @@ export default {
     };
   },
   created() {
-    this.text = this.value;
+    if(this.type === 'date') {
+      if(this.value === null) this.text = new Date();
+      else this.text = new Date(this.value)
+    }
+    else this.text = this.value;
   },
   methods: {
     updated(e) {
       this.text = e.target.value;
       this.$emit("update:value", this.text);
     },
+    datePickerUpdate() {
+      const date = `${this.text.toLocaleDateString().replaceAll(". ", "-").replaceAll(".", "")} 00:00:00`
+      this.$emit("update:value", date);
+    },
     focus() {
       this.$refs.input.focus();
     },
   },
+  // watch: {
+  //   "todoData.order": function (val) {
+  //     if (this.dragEvent) return;
+  //     console.log("순서바뀜")
+  //     console.log(val);
+  //     // TODO: 순서 변경 시 ajax를 통해 순서 변경 알림
+  //   },
+  //   "todoData.status": function (val) {
+  //     if (this.dragEvent) return;
+  //     console.log("상태바뀜")
+  //     console.log(val);
+  //     // TODO: 상태 변경 시 ajax를 통해 상태 변경 알림
+  //   },
+  // },
 };
 </script>
 
@@ -93,7 +128,7 @@ export default {
     border-bottom: 1px solid #999;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background:#F5F5F5;
+    background: #fafafa;
     &:focus {
       border-bottom: 1px solid rgb(21, 127, 232);
       & + .textfield-title {
@@ -113,7 +148,7 @@ export default {
     border-bottom: 1px solid #999;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background:#F5F5F5;
+    background: #f5f5f5;
     &:focus {
       border-bottom: 1px solid rgb(21, 127, 232);
       & + .textfield-title {
@@ -126,6 +161,9 @@ export default {
     outline: none;
     width: calc(100% - 5px);
     padding: 10px;
+  }
+  .mx-datepicker {
+    width:100%;
   }
 }
 </style>

@@ -37,6 +37,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Types from "@/types/types";
+import { reqTodo } from "@/utils/axios"
 export default {
   props: ["todoData"],
   computed: {
@@ -48,7 +49,7 @@ export default {
       else false;
     },
     content() {
-      return this.todoData.content.replace(/\n/g, "<br />");
+      return this.todoData.content !== null ? this.todoData.content.replace(/\n/g, '<br />') : '';
     },
   },
   data() {
@@ -65,6 +66,7 @@ export default {
           : status === this.TodoStatus.IN_PROGRESS
           ? this.TodoStatus.DONE
           : this.TodoStatus.TODO;
+      reqTodo.status(this.todoData.id, this.todoData.status);
     },
   },
   watch: {

@@ -81,7 +81,7 @@ export default {
       left: calc(50% - 300px);
       .content {
         width: calc(100% + 15px);
-        padding-right: 13px;
+        padding-right: 28px;
       }
     }
 

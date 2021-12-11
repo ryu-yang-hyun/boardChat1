@@ -37,7 +37,7 @@ public class TodoServiceImpl implements TodoService{
      * 조회
      */
     @Override
-    public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request, Pageable pageable) throws ServiceException {
+    public ResponseEntity todoList(HttpServletRequest request) throws ServiceException {
 
         ResponseEntity responseEntity = sessionUserCheck(request);
         if(!"OK".equals(responseEntity.getCode())) {
@@ -51,6 +51,20 @@ public class TodoServiceImpl implements TodoService{
         responseEntity.setData(todoRepository.findTotoList(todo.getUser().getId()));
         return responseEntity;
     }
+//    public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request, Pageable pageable) throws ServiceException {
+//
+//        ResponseEntity responseEntity = sessionUserCheck(request);
+//        if(!"OK".equals(responseEntity.getCode())) {
+//            return responseEntity;
+//        }
+//
+//        Gson gson = new Gson();
+//        String checkData = gson.toJson(responseEntity.getData());
+//        Todo todo = gson.fromJson(checkData,Todo.class);
+//
+//        responseEntity.setData(todoRepository.findTotoList(todo.getUser().getId()));
+//        return responseEntity;
+//    }
 
     /**
      * 등록
@@ -110,6 +124,29 @@ public class TodoServiceImpl implements TodoService{
         optionalTodo.get().setUser(todo.getUser());
         todo = optionalTodo.get();
         responseEntity.setData(todo);
+
+        return responseEntity;
+    }
+    /**
+     * 삭제
+     */
+    @Override
+    public ResponseEntity delete(Long id, HttpServletRequest request) throws ServiceException {
+        //user, session Check
+        ResponseEntity responseEntity = sessionUserCheck(request);
+
+        if(!"OK".equals(responseEntity.getCode())) {
+            return responseEntity;
+        }
+
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+        if(!optionalTodo.isPresent()) {
+            responseEntity.setMessage("Todo 정보가 없습니다.");
+            return responseEntity;
+        }
+
+        todoRepository.deleteById(optionalTodo.get().getId());
+        responseEntity.setData("OK");
 
         return responseEntity;
     }
@@ -176,6 +213,25 @@ public class TodoServiceImpl implements TodoService{
         todo.setModifiedAt(LocalDateTime.now());
         todo.setModifiedBy(todo.getUser().getName());
         responseEntity.setData(todoRepository.save(todo));
+
+        return responseEntity;
+    }
+
+    @Override
+    public ResponseEntity updateOrders(Long todoId, Long orders, HttpServletRequest request) throws ServiceException {
+        ResponseEntity responseEntity = sessionUserCheck(request);
+        if(!"OK".equals(responseEntity.getCode())) {
+            return responseEntity;
+        }
+
+        Optional<Todo> optionalTodo = todoRepository.findById(todoId);
+        if(!optionalTodo.isPresent()) {
+            responseEntity.setMessage("Todo 정보가 없습니다.");
+            return responseEntity;
+        }
+
+        optionalTodo.get().setOrders(orders);
+        responseEntity.setData(todoRepository.save(optionalTodo.get()));
 
         return responseEntity;
     }

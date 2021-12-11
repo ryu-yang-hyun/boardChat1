@@ -28,7 +28,7 @@ export default {
   position: relative;
   padding-top: 54px;
   padding-bottom: 60px;
-  background:#EAEAEA;
+  background: #eaeaea;
 
   #content-wrap {
     z-index: 99999;
@@ -36,7 +36,7 @@ export default {
     width: 100%;
     max-width: 500px;
     background: #fff;
-    min-height: calc( 100vh - 114px );
+    min-height: calc(100vh - 114px);
     padding: 10px;
   }
   #header {

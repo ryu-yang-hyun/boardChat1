@@ -12,7 +12,8 @@ public interface TodoService {
     /**
      * 조회
      */
-    public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request, Pageable pageable) throws ServiceException;
+    public ResponseEntity todoList(HttpServletRequest request) throws ServiceException;
+//    public ResponseEntity todoList(TodoDto todoDto, HttpServletRequest request, Pageable pageable) throws ServiceException;
 
     /**
      * 등록
@@ -25,6 +26,10 @@ public interface TodoService {
     public ResponseEntity details(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
 
     /**
+     * 삭제
+     */
+    public ResponseEntity delete(Long id, HttpServletRequest request) throws ServiceException;
+    /**
      * 수정
      */
     public ResponseEntity updateModify(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
@@ -33,5 +38,10 @@ public interface TodoService {
      * 상태변경
      */
     public ResponseEntity updateStatus(TodoDto todoDto, HttpServletRequest request) throws ServiceException;
+
+    /**
+     * 순서 변경
+     */
+    public ResponseEntity updateOrders(Long todoId, Long orders, HttpServletRequest request) throws ServiceException;
 
 }
