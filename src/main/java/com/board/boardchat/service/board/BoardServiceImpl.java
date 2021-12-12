@@ -15,7 +15,6 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -53,7 +52,8 @@ public class BoardServiceImpl implements BoardService {
 
         Pageable pageable = PageRequest.of(boardDto.getPage(),boardDto.getSize(), GetSort.getSort("createAt", "desc"));
         Page<Board> list  = boardRepository.findAll(pageable);
-        responseEntity.setData(list);
+        responseEntity.setData(list.getContent());
+        responseEntity.setTotalCount(list.getTotalElements());
         return responseEntity;
     }
 

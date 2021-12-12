@@ -4,6 +4,7 @@ public class ResponseEntity<E> {
     private E data;
     private String message;
     private String code;
+    private long totalCount;
 
 
     public E getData() {
@@ -28,5 +29,13 @@ public class ResponseEntity<E> {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public long getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(long totalCount) {
+        this.totalCount = totalCount;
     }
 }
