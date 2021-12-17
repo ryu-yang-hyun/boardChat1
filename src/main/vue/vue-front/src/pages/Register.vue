@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <div class="section-title">로그인</div>
+    <div class="section-title">회원가입</div>
     <div class="section-login-form">
       <div class="section-input-text">
         <i class="mdi mdi-at --grey"></i>
@@ -22,15 +22,24 @@
           type="password"
           :value.sync="validate.password"
           placeholder="비밀번호"
-          @enter="login"
           fontSize="17"
           autocomplete="current-password"
         />
         <FieldErrorMsg v-if="pwErrMsg" :errMsg="pwErrMsg" />
       </div>
-      <Button class="login-button" type="Green" @click="login">로그인</Button>
-      <div class="v-divider or" />
-      <router-link to="/register"><Button class="login-button" type="Blue" @click="register">회원가입</Button></router-link>
+      <div class="section-input-text">
+        <i class="mdi mdi-lock-open --grey"></i>
+        <InputField
+          ref="pw"
+          type="password"
+          :value.sync="validate.password2"
+          placeholder="비밀번호확인"
+          fontSize="17"
+          autocomplete="current-password"
+        />
+        <FieldErrorMsg v-if="pwErrMsg" :errMsg="pwErrMsg2" />
+      </div>
+      <Button class="login-button" type="Blue" @click="register">회원가입</Button>
     </div>
   </section>
 </template>
@@ -39,7 +48,7 @@
 import FieldErrorMsg from "@/components/FieldErrorMsg";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
-import { reqAuth } from "@/utils/axios"
+import { reqRegister } from "@/utils/axios"
 
 export default {
   name: "Login",
@@ -47,11 +56,13 @@ export default {
     return {
       emailErrMsg: "",
       pwErrMsg: "",
+      pwErrMsg2: "",
       emailPattern:
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       validate: {
         email: "",
         password: "",
+        password2: "",
       },
     };
   },
@@ -61,28 +72,20 @@ export default {
     Button,
   },
   methods: {
-    async login(e) {
-      
+    async register(e) {
       let check = true;
       if (!this.checker("pw")) check = false;
+      if (!this.checker("pw2")) check = false;
       if (!this.checker("email")) check = false;
       if (!check) return;
-      // TODO: submit
-      // reqAuth.userLogin(this.validate.email, this.validate.password)
-      // .then(res => {
-      //   this.$store.commit('setRegistAuth', res.data.user);
-      // })
-      // .catch(error => {
-      //   this.alert = error.response.data.message;
-      // });
 
-      const result = await reqAuth.login( this.validate.email, this.validate.password)
+      const result = await reqRegister.register( this.validate.email, this.validate.password)
       if(result.data.id > 0) {
-        this.$store.commit('setMember', result.data)
-        this.$router.push('/')
+        // this.$store.commit('setMember', result.data)
+        this.$router.push('/login')
+      } else {
+        alert("회원가입에 실패하였습니다.")
       }
-    },
-    register(e) {
     },
     checker(type) {
       if (type === "email") {
@@ -105,6 +108,11 @@ export default {
           return this.error(type, "비밀번호를 8자 이상 입력해주세요.");
         }
         this.pwErrMsg = "";
+      } else if (type === "pw2") {
+        if (this.validate.password2 !== this.validate.password) {
+          return this.error(type, "비밀번호가 일치하지 않습니다.");
+        }
+        this.pwErrMsg2 = "";
       }
       return true;
     },
@@ -131,6 +139,11 @@ export default {
     "validate.password": function () {
       if (this.pwErrMsg) {
         this.checker("pw");
+      }
+    },
+    "validate.password2": function () {
+      if (this.pwErrMsg2) {
+        this.checker("pw2");
       }
     },
   },

@@ -28,6 +28,24 @@ const reqAuth = {
             url: '/api/account/check'
         };
         return awaitApi( config );
+    },
+    logout: () => {
+        const config = {
+            method: 'GET',
+            url: '/api/account/logout'
+        };
+        return awaitApi( config );  
+    }
+}
+
+const reqRegister = {
+    register: (email, password) => {
+        const config = {
+            method: 'POST',
+            url: '/api/account/register',
+            data: { email: email, password: password }
+        };
+        return awaitApi( config );
     }
 }
 
@@ -114,6 +132,7 @@ const reqBoard = {
 
 export {
     reqAuth,
+    reqRegister,
     reqTodo,
     reqBoard
 }

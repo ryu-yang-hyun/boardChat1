@@ -5,6 +5,7 @@ import Todo from '@/pages/Todo'
 import Chat from '@/pages/Chat'
 import Board from '@/pages/Board'
 import Login from '@/pages/Login'
+import Register from '@/pages/Register'
 import NotFound from '@/pages/NotFound'
 import {
   store
@@ -52,6 +53,14 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login,
+      meta: {
+        notLogin: true
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
       meta: {
         notLogin: true
       }

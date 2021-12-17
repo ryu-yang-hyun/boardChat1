@@ -29,10 +29,10 @@
       </ul>
       <ul class="top">
         <li>
-          <div><a @click="$store.commit('logout')">로그아웃</a></div>
+          <div><a @click="logout">로그아웃</a></div>
         </li>
       </ul>
-      <div class="close" @click="clickMenu">
+      <div class="close" @click="toggleMenu">
         <span>닫기</span>
         <i class="mdi mdi-close-thick" />
       </div>
@@ -41,13 +41,14 @@
       <span>H201803030_류양현</span>
     </div>
     <div class="left">
-      <i class="mdi" :class="menuClass" @click="clickMenu"></i>
+      <i class="mdi" :class="menuClass" @click="toggleMenu"></i>
     </div>
   </section>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { reqAuth } from "@/utils/axios"
 export default {
   components: {
   },
@@ -133,7 +134,24 @@ export default {
   methods: {
     ...mapActions({
         clickMenu: 'toggleMenu'
-    })
+    }),
+    toggleMenu() {
+      if(this.$store.state.member.id === -1) return
+      else {
+        this.clickMenu();
+      }
+    },
+    async logout() {
+      const result = await reqAuth.logout();
+      if( result.code === 'OK') {
+        this.toggleMenu();
+        this.$store.commit('setMember', {id: -1})
+        this.$router.push('/login')
+      }
+      else {
+        alert(result.code);
+      }
+    }
   },
 };
 </script>
