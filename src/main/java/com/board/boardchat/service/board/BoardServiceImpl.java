@@ -52,9 +52,17 @@ public class BoardServiceImpl implements BoardService {
 
         Pageable pageable = PageRequest.of(offset,limit, GetSort.getSort("createAt", "desc"));
         Page<Board> list  = boardRepository.findAll(pageable);
-        responseEntity.setData(list.getContent());
+        responseEntity.setData(list.getContent().stream().map( x -> convertDto(x)));
         responseEntity.setTotalCount(list.getTotalElements());
         return responseEntity;
+    }
+
+    private BoardDto convertDto(Board source) {
+        BoardDto target = new BoardDto();
+        target.setId(source.getId());
+        target.setContent(source.getContent());
+        target.setTitle(source.getTitle());
+        return target;
     }
 
     /**

@@ -39,6 +39,7 @@ public class BoardController {
         return result;
     }
 
+
     /**
      * 등록
      */

@@ -1,14 +1,15 @@
 <template>
   <section id="bottom">
     <ul>
-      <li v-for="(item, index) in menuList" :key="`bottomMenu${index}`">
+      <li v-for="(item, index) in menuList" :key="`bottomMenu${index}`" :class="activeCheck(item) ? 'active' : ''">
         <router-link :to="item.link">
         <i
           class="mdi"
-          :class="
-            $route.path === item.link || ($route.path === '/' && item.link === '/todo')
+          :class="`
+            ${activeCheck(item)
               ? item.icon.active
-              : item.icon.default
+              : item.icon.default} ${item.path.filter( x => x === $route.path).length}
+              `
           "
         />
         <span>{{ item.title }}</span>
@@ -20,6 +21,15 @@
 
 <script>
 export default {
+  created() {
+    console.log(this.$route.path)
+  },
+  methods: {
+    activeCheck(item) {
+      if(item.path.filter( x => x == this.$route.path).length > 0) return true
+      else return false;
+    }
+  },
   data() {
     return {
       menuList: [
@@ -34,6 +44,7 @@ export default {
         {
           title: "Todo",
           link: "/todo",
+          path: ["", "/", "/todo"],
           icon: {
             default: "mdi-chart-box-outline",
             active: "mdi-chart-box",
@@ -42,6 +53,7 @@ export default {
         {
           title: "Board",
           link: "/board",
+          path: ["/board"],
           icon: {
             default: "mdi-star-outline",
             active: "mdi-star",
@@ -103,6 +115,7 @@ export default {
           line-height: 35px;
           height: 35px;
         }
+        
         span {
           display: inline-block;
           font-size: 10px;
@@ -110,8 +123,10 @@ export default {
           height: 15px;
           font-weight: 400;
         }
+      }
 
-        &[aria-current="page"] {
+      &.active {
+        a{
           color: #333;
           span {
             font-weight: 900;
