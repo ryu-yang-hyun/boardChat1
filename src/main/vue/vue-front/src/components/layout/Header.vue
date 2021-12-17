@@ -71,25 +71,25 @@ export default {
       menuList: [
         {
           type: "top",
-          title: "탑 메뉴1",
+          title: "Todo",
           link: "/",
-          children: [
-            {
-              type: "child",
-              title: "자식 메뉴1",
-              link: "/",
-            },
-            {
-              type: "child",
-              title: "자식 메뉴2",
-              link: "/",
-            },
-            {
-              type: "child",
-              title: "자식 메뉴3",
-              link: "/",
-            },
-          ],
+          // children: [
+          //   {
+          //     type: "child",
+          //     title: "자식 메뉴1",
+          //     link: "/",
+          //   },
+          //   {
+          //     type: "child",
+          //     title: "자식 메뉴2",
+          //     link: "/",
+          //   },
+          //   {
+          //     type: "child",
+          //     title: "자식 메뉴3",
+          //     link: "/",
+          //   },
+          // ],
         },
         {
           type: "divider",
@@ -97,55 +97,36 @@ export default {
         },
         {
           type: "top",
-          title: "탑 메뉴2",
+          title: "Board",
           link: "/",
-          children: [
-            {
-              type: "child",
-              title: "자식 메뉴1",
-              link: "/",
-            },
-            {
-              type: "child",
-              title: "자식 메뉴2",
-              link: "/",
-            },
-            {
-              type: "child",
-              title: "자식 메뉴3",
-              link: "/",
-            },
-          ],
+          // children: [
+          //   {
+          //     type: "child",
+          //     title: "자식 메뉴1",
+          //     link: "/",
+          //   },
+          //   {
+          //     type: "child",
+          //     title: "자식 메뉴2",
+          //     link: "/",
+          //   },
+          //   {
+          //     type: "child",
+          //     title: "자식 메뉴3",
+          //     link: "/",
+          //   },
+          // ],
         },
-        {
-          type: "top",
-          title: "탑 메뉴3",
-          link: "/",
-          children: [],
-        },
-        {
-          type: "top",
-          title: "탑 메뉴4",
-          link: "/",
-          children: [
-            {
-              type: "child",
-              title: "자식 메뉴1",
-              link: "/",
-            },
-            {
-              type: "child",
-              title: "자식 메뉴2",
-              link: "/",
-            },
-          ],
-        },
-        {
-          type: "top",
-          title: "탑 메뉴5",
-          link: "/",
-          children: [],
-        },
+        // {
+        //   type: "divider",
+        //   children: [],
+        // },
+        // {
+        //   type: "top",
+        //   title: "Chat",
+        //   link: "/",
+        //   children: [],
+        // },
       ],
     };
   },
@@ -275,6 +256,10 @@ export default {
     > span {
       padding: 5px 20px;
     }
+  }
+
+  .top{
+    cursor: pointer;
   }
 }
 </style>

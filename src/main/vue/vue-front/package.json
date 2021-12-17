@@ -15,11 +15,13 @@
     "@mdi/font": "^5.9.55",
     "@mdi/js": "^5.9.55",
     "axios": "^0.24.0",
+    "sockjs-client": "^1.5.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue2-datepicker": "^3.10.3",
     "vuedraggable": "^2.24.3",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

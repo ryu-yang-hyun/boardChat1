@@ -15,10 +15,11 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  routes: [{
+  routes: [
+    {
       path: '/',
       name: 'Home',
-      component: Home,
+      component: Todo,
       meta: {
         requiresLogin: true
       }

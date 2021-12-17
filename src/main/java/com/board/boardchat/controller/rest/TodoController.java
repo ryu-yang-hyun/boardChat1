@@ -32,13 +32,6 @@ public class TodoController {
 
         return result;
     }
-//    @GetMapping
-//    public ResponseEntity todoList(@RequestBody TodoDto todoDto, HttpServletRequest request, Pageable pageable) {
-//
-//        ResponseEntity result = todoService.todoList(todoDto, request, pageable);
-//
-//        return result;
-//    }
 
 
     /**

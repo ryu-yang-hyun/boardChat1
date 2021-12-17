@@ -43,14 +43,14 @@ public class BoardServiceImpl implements BoardService {
      * 조회
      */
     @Override
-    public ResponseEntity boardList (BoardDto boardDto, HttpServletRequest request) {
+    public ResponseEntity boardList (String keyword, Integer offset, Integer limit, HttpServletRequest request) {
 
         ResponseEntity responseEntity = sessionUserCheck(request);
         if(!"OK".equals(responseEntity.getCode())) {
             return responseEntity;
         }
 
-        Pageable pageable = PageRequest.of(boardDto.getPage(),boardDto.getSize(), GetSort.getSort("createAt", "desc"));
+        Pageable pageable = PageRequest.of(offset,limit, GetSort.getSort("createAt", "desc"));
         Page<Board> list  = boardRepository.findAll(pageable);
         responseEntity.setData(list.getContent());
         responseEntity.setTotalCount(list.getTotalElements());
@@ -125,7 +125,9 @@ public class BoardServiceImpl implements BoardService {
         String checkData = gson.toJson(responseEntity.getData());
         Board board = gson.fromJson(checkData,Board.class);
 
-        if(board.getUser().getId() != boardDto.getId()) {
+        Optional<Board> checkBoard = boardRepository.findBoardId(boardDto.getId());
+
+        if(board.getUser().getId() != checkBoard.get().getUser().getId()) {
             responseEntity.setMessage("수정 할 수 없습니다.");
             return responseEntity;
         }

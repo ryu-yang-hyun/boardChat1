@@ -79,7 +79,41 @@ const reqTodo = {
     }
 }
 
+const reqBoard = {
+    list: () => {
+        const config = {
+            method: 'GET',
+            url: '/api/board'
+        };
+        return awaitApi( config );
+    },
+    modify: ( item ) => {
+        const config = {
+            method: 'POST',
+            url: '/api/board/modify',
+            data: item
+        }
+        return awaitApi( config );
+    },
+    insert: ( item ) => {
+        const config = {
+            method: 'POST',
+            url: '/api/board',
+            data: item
+        }
+        return awaitApi( config );
+    },
+    remove: ( id ) => {
+        const config = {
+            method: 'DELETE',
+            url: `/api/board/${id}`
+        }
+        return awaitApi( config );
+    }
+}
+
 export {
     reqAuth,
-    reqTodo
+    reqTodo,
+    reqBoard
 }

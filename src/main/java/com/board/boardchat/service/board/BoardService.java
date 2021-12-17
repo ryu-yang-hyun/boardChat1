@@ -13,7 +13,7 @@ public interface BoardService {
     /**
      * 조회
      */
-    public ResponseEntity boardList (BoardDto boardDto, HttpServletRequest request) throws ServiceException;
+    public ResponseEntity boardList (String keyword, Integer offset, Integer limit, HttpServletRequest request) throws ServiceException;
 
     /**
      * 등록

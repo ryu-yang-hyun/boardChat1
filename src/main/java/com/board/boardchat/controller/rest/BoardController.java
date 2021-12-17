@@ -1,14 +1,13 @@
 package com.board.boardchat.controller.rest;
 
 import com.board.boardchat.common.Constant;
+import com.board.boardchat.common.GetSort;
 import com.board.boardchat.dto.BoardDto;
 import com.board.boardchat.dto.ResponseEntity;
-import com.board.boardchat.dto.TodoDto;
 import com.board.boardchat.model.Board;
 import com.board.boardchat.service.board.BoardService;
-import com.board.boardchat.service.todo.TodoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +29,12 @@ public class BoardController {
      *  조회
      */
     @GetMapping
-    public ResponseEntity todoList(@RequestBody BoardDto boardDto, HttpServletRequest request) {
+    public ResponseEntity boardList(HttpServletRequest request,
+                                    @RequestParam(value = "keyword", defaultValue = "") String keyword,
+                                    @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                    @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
 
-        ResponseEntity result = boardService.boardList(boardDto, request);
+        ResponseEntity result = boardService.boardList(keyword, offset, limit, request);
 
         return result;
     }

@@ -6,7 +6,7 @@
         <i
           class="mdi"
           :class="
-            $route.path === item.link
+            $route.path === item.link || ($route.path === '/' && item.link === '/todo')
               ? item.icon.active
               : item.icon.default
           "
@@ -23,14 +23,14 @@ export default {
   data() {
     return {
       menuList: [
-        {
-          title: "홈",
-          link: "/",
-          icon: {
-            default: "mdi-home-variant-outline",
-            active: "mdi-home-variant",
-          },
-        },
+        // {
+        //   title: "홈",
+        //   link: "/",
+        //   icon: {
+        //     default: "mdi-home-variant-outline",
+        //     active: "mdi-home-variant",
+        //   },
+        // },
         {
           title: "Todo",
           link: "/todo",
@@ -46,15 +46,15 @@ export default {
             default: "mdi-star-outline",
             active: "mdi-star",
           },
-        },
-        {
-          title: "Chat",
-          link: "/chat",
-          icon: {
-            default: "mdi-comment-alert-outline",
-            active: "mdi-comment-alert",
-          },
         }
+        // {
+        //   title: "Chat",
+        //   link: "/chat",
+        //   icon: {
+        //     default: "mdi-comment-alert-outline",
+        //     active: "mdi-comment-alert",
+        //   },
+        // }
       ],
     };
   },
