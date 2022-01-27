@@ -141,4 +141,5 @@ public class User extends CommonEntity {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
+
 }
